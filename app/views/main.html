@@ -1,11 +1,142 @@
-<div class="jumbotron">
+<!-- 
+
+ <div class="jumbotron">
   <h1>'Allo, 'Allo!</h1>
   <p class="lead">
     <img src="images/yeoman.png" alt="I'm Yeoman"><br>
     Always a pleasure scaffolding your apps.
   </p>
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+</div> 
+
+
+-->
+
+
+
+<div class="bar" ng-init="page ='login'">
+
+          <!-- These two buttons switch the layout varaible,
+             which causes the correct UL to be shown. -->
+
+          <a href="#/" ng-class="{active: page == 'login'}" ng-click="page = 'login'">Log In</a>
+          <a href="#/" ng-class="{active: page == 'register'}" ng-click="page = 'register'">Sign Up</a>
 </div>
+
+<!-- Sign In form -->
+
+<section ng-show="page == 'login'">
+  <h3 class="head">Sign In form</h3>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="form-name" class="col-sm-3 control-label">Your name</label>
+      <div class="col-sm-9">
+        <input name="name" type="text" class="form-control" placeholder="Insert your name" id="form-name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-passwd" class="col-sm-3 control-label">Your password</label>
+      <div class="col-sm-9">
+        <input name="passwd" type="password" class="form-control" placeholder="Insert your password" id="form-passwd">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button type="submit" class="btn btn-success">Sign In</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<section ng-show="page == 'register'">
+  <h3 class="head">Register form</h3>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="form-name" class="col-sm-3 control-label">Your name</label>
+      <div class="col-sm-9">
+        <input name="name" type="text" class="form-control" placeholder="Insert your name" id="form-name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-lastname" class="col-sm-3 control-label">Your lastname</label>
+      <div class="col-sm-9">
+        <input name="lastname" type="text" class="form-control" placeholder="Insert your lastname" id="form-lastname">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-passwd" class="col-sm-3 control-label">Your password</label>
+      <div class="col-sm-9">
+        <input name="passwd" type="password" class="form-control" placeholder="Insert your password" id="form-passwd">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-confpasswd" class="col-sm-3 control-label">Confirm password</label>
+      <div class="col-sm-9">
+        <input name="confpasswd" type="password" class="form-control" placeholder="Confirm your password" id="form-confpasswd">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-email" class="col-sm-3 control-label">Your email</label>
+      <div class="col-sm-9">
+        <input name="email" type="email" class="form-control" placeholder="Insert your email" id="form-email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-phone" class="col-sm-3 control-label">Your phone</label>
+      <div class="col-sm-9">
+        <input name="phone" type="text" class="form-control" placeholder="Enter your phone number" id="form-phone">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-city" class="col-sm-3 control-label">Your city</label>
+      <div class="col-sm-9">
+        <input name="city" type="text" class="form-control" placeholder="Enter city where are you living now" id="form-city">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-street" class="col-sm-3 control-label">Street</label>
+      <div class="col-sm-9">
+        <input name="street" type="text" class="form-control" placeholder="Enter your street" id="form-street">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-house" class="col-sm-3 control-label">House number</label>
+      <div class="col-sm-9">
+        <input name="house" type="text" class="form-control" placeholder="Enter your house number" id="form-house">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button type="submit" class="btn btn-success">Sign In</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- end Sign In form -->
+
+<script src="scripts/common.js"></script>
+
+
+<!-- 
 
 <div class="row marketing">
   <h4>HTML5 Boilerplate</h4>
@@ -21,3 +152,5 @@
   <h4>Karma</h4>
   <p>Spectacular Test Runner for JavaScript.</p>
 </div>
+
+-->
