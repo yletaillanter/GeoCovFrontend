@@ -40,6 +40,7 @@
 
             <ul class="nav navbar-nav">
               <li class="active"><a href="#/">Home</a></li>
+	      <li><a href="#/cluster">Recherche</a></li>
               <li><a ng-href="#/about">About</a></li>
               <li><a ng-href="#/contact">Contact</a></li>
             </ul>
@@ -88,6 +89,9 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+	<script src="scripts/controllers/cluster.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/contact.js"></script>
         <script src="scripts/services/auth.js"></script>

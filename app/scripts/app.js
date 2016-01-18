@@ -17,6 +17,11 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/cluster', {
+        templateUrl: 'views/cluster.html',
+        controller: 'ClusterCtrl',
+        controllerAs: 'cluster'
+      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
