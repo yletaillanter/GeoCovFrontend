@@ -40,7 +40,7 @@ geocovApp
             // }
 
             newContact.password = contact.password;
-            newContact.cpassword = contact.cpassword;
+            //newContact.cpassword = contact.cpassword;
             newContact.email = contact.email;
             newContact.phone = contact.phone;
             newContact.city = contact.city;
