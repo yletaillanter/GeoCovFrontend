@@ -38,6 +38,8 @@ geocovApp.controller('MainCtrl', ['$scope', '$routeParams', 'Contact', function 
             newContact.street = contact.street;
             newContact.street = contact.street;
             newContact.contactId = $routeParams.contactId;
+
+            console.log(newContact);
             
             newContact.$save();
         };

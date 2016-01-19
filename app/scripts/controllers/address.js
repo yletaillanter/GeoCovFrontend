@@ -9,21 +9,21 @@
  */
 geocovApp
   //The name params Adress is the same on controller function just bellow
-  .factory('Adress', function($resource) {
+  .factory('Address', function($resource) {
     return $resource('http://localhost\:8080/adresse/:id', {id:'@id'})
   })
-  //Add adress controller, used to split correcly each controller
-  .controller('AdressAddCtrl', function ($scope, $routeParams, Adress) {
+  //Add address controller, used to split correcly each controller
+  .controller('AddressAddCtrl', function ($scope, $routeParams, Address) {
     // Add Function used to add new adress in the server
     //TODO Get Lat & Long parameters with getLatLong function
     //TODO Complete this function
-    $scope.add = function(adress) {
-            var newAdress = new Adress;
-            newAdress.numero = adress.numero;
-            newAdress.rue = adress.rue;
-            newAdress.cp = adress.cp;
-            newAdress.ville = adress.ville;
-            newAdress.$save();
+    $scope.add = function(address) {
+            var newAddress = new Address;
+            newAddress.numero = address.numero;
+            newAddress.rue = address.rue;
+            newAddress.cp = address.cp;
+            newAddress.ville = address.ville;
+            newAddress.$save();
     };
 
     // Reset function used to reset form
@@ -31,7 +31,7 @@ geocovApp
         $scope.device = angular.copy({});
     };
 
-    // Function used to collect geodata from adress
+    // Function used to collect geodata from address
     $scope.getLatLong = function(address) {
       console.log(address);
       var geo = new google.maps.Geocoder;
