@@ -1,3 +1,4 @@
+/*
 geocovApp.factory('auth', ['$http', function($http){
 	// User data temporary stored in data/auth.json . Modify this file, when you'll connect with DB
 
@@ -7,3 +8,9 @@ geocovApp.factory('auth', ['$http', function($http){
 		    return err;
   });
 }]);
+*/
+
+//Factory device to use $resource instead $http for the rest request
+geocovApp.factory('Contact', function($resource) {
+    return $resource('http://localhost\:8080/contacts/:id', {id:'@id'});
+});

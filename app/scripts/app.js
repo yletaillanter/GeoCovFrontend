@@ -17,10 +17,15 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/cluster', {
-        templateUrl: 'views/cluster.html',
-        controller: 'ClusterCtrl',
-        controllerAs: 'cluster'
+      .when('/auth', {
+        templateUrl: 'views/auth.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
+      })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
@@ -31,11 +36,6 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl',
         controllerAs: 'contact'
-      })
-      .when('/adress', {
-        templateUrl: 'views/adress.html',
-        controller: 'AdressAddCtrl',
-        controllerAs: 'adress'
       })
       .otherwise({
         redirectTo: '/'
