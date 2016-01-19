@@ -32,6 +32,11 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'ContactCtrl',
         controllerAs: 'contact'
       })
+      .when('/adress', {
+        templateUrl: 'views/adress.html',
+        controller: 'AdressAddCtrl',
+        controllerAs: 'adress'
+      })
       .otherwise({
         redirectTo: '/'
       });

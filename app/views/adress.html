@@ -1,0 +1,21 @@
+<form class="form-horizontal" role="form">
+  <legend>Add adress</legend>
+  <div class='form-group'>
+    <label for='numero'>Numero: </label>
+    <input type='text' class='form-control' ng-model='adress.numero' id='numero' required />
+  </div>
+  <div class='form-group'>
+    <label for='rue'>Rue: </label>
+    <input type='text' class='form-control' ng-model='adress.rue' id='rue' required />
+  </div>
+  <div class='form-group'>
+    <label for='cp'>Code Postal: </label>
+    <input type='text' class='form-control' ng-model='adress.cp' id='cp' required />
+  </div>
+  <div class='form-group'>
+    <label for='ville'>Ville: </label>
+    <input type='text' class='form-control' ng-model='adress.ville' id='ville' required />
+  </div>
+  <input type='button' class='btn btn-default' ng-click='reset()' value='Reset' />
+  <input type='submit' class='btn btn-default' ng-click='add(adress)' value='Save' />
+</form>
