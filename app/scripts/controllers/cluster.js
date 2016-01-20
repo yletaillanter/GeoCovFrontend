@@ -18,11 +18,16 @@ geocovApp
     $scope.initMap = function() {
       var carte = {
         center:new google.maps.LatLng(48.110992,-1.667973),
-        zoom:12,
+        zoom:13,
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
-      //var map=new google.maps.Map(document.getElementById("map"),carte);
-      new google.maps.Map(document.getElementById("map"),carte);
+      var map=new google.maps.Map(document.getElementById("map"),carte);
+
+      //création du marqueur
+      var marqueur = new google.maps.Marker({
+        position: new google.maps.LatLng(48.110992,-1.667973),
+        map: map
+      });
     }
 });
 
