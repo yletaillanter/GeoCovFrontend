@@ -7,22 +7,15 @@
  * # ClusterCtrl
  * Controller of the geocovApp
  */
-angular.module('geocovApp')
-  .controller('ClusterCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
-    /*
+geocovApp
+  .controller('ClusterCtrl', function ($scope) {
+      /*
     Solution 2 - déroulement :
 
     Clique sur bouton de recherche
     Récupération dans la base de données des personnes et des groupes < 4 personnes et non vérouillé
     */
-
-    function initMap() {
+    $scope.initMap = function() {
       var carte = {
         center:new google.maps.LatLng(48.110992,-1.667973),
         zoom:12,
@@ -31,7 +24,6 @@ angular.module('geocovApp')
       //var map=new google.maps.Map(document.getElementById("map"),carte);
       new google.maps.Map(document.getElementById("map"),carte);
     }
-    google.maps.event.addDomListener(window, 'load', initMap);
 });
 
 /*
