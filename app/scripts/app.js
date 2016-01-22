@@ -17,35 +17,30 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/auth', {
+      .when('/compte', {
+        templateUrl: 'views/compte.html',
+        controller: 'CompteCtrl',
+        controllerAs: 'compte'
+      })
+      .when('/compte/auth', {
         templateUrl: 'views/auth.html',
-        controller: 'MainCtrl',
+        controller: 'CompteCtrlAuth',
         controllerAs: 'main'
       })
-      .when('/register', {
+      .when('/compte/register', {
         templateUrl: 'views/register.html',
-        controller: 'MainCtrl',
+        controller: 'CompteCtrlEnre',
         controllerAs: 'main'
       })
-      .when('/cluster', {
-        templateUrl: 'views/cluster.html',
-        controller: 'ClusterCtrl',
-        controllerAs: 'cluster'
+      .when('/carte', {
+        templateUrl: 'views/carte.html',
+        controller: 'CarteCtrl',
+        controllerAs: 'carte'
       })
-      .when('/address', {
-        templateUrl: 'views/address.html',
-        controller: 'AddressAddCtrl',
-        controllerAs: 'address'
-      }) 
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl',
-        controllerAs: 'contact'
+      .when('/adresse', {
+        templateUrl: 'views/adresse.html',
+        controller: 'AdresseAddCtrl',
+        controllerAs: 'adresse'
       })
       .otherwise({
         redirectTo: '/'
