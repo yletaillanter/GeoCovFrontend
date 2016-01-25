@@ -5,11 +5,11 @@
 
 <section>
   <h3 class="head">Sign In form</h3>
-  <form class="form-horizontal" role="form">
+  <form class="form-horizontal" role="form" ng-submit="log(contact)">
     <div class="form-group">
       <label for="form-name" class="col-sm-3 control-label">Your username</label>
       <div class="col-sm-9">
-        <input name="name" type="text" class="form-control" placeholder="Insert your name" id="form-name" ng-model="contact.username">
+        <input name="name" type="text" class="form-control" placeholder="Insert your name" id="form-name" ng-model="contact.email">
       </div>
     </div>
     <div class="form-group">
@@ -22,7 +22,7 @@
       <div class="col-sm-offset-3 col-sm-9">
         <div class="checkbox">
           <label>
-            <input type="checkbox"> Remember me
+            <input type="checkbox" ng-model="contact.remember"> Remember me
           </label>
         </div>
       </div>
