@@ -12,22 +12,31 @@ angular.module('geocovApp')
 	.factory('Contact', function($resource) {
 		return $resource('http://localhost\:8080/client/:id', {id:'@id'});
 	})
-	.factory('ContactAuth', function($resource) {
+	//Factory utilisé pour la connexion
+	.factory('Auth', function($resource) {
 		return $resource('http://localhost\:8080/client/auth');
 	})
-	.controller('CompteCtrl', function ($scope, $routeParams, Contact) {
+	.controller('CompteCtrl', function ($scope, $routeParams, $location, Contact) {
+		//Si on est pas connecté, alors redirection vers le formulaire de connexion
+		if(!sessionStorage.loggedIn) {
+			$location.path('/compte/auth');
+		}
 
 	})
-	.controller('CompteCtrlAuth', function ($scope, $routeParams, ContactAuth, $cookieStore) {
+	.controller('CompteCtrlAuth', function ($scope, $routeParams, $location, Auth, $cookieStore) {
+		//Si connecté alors impossible de se connecter à nouveau
+		if(sessionStorage.loggedIn) {
+			$location.path('/compte');
+		}
+
 	  $scope.log = function(contact) {
 			// Comment récupérer une valeur au cookie
 			// console.log($cookieStore.get(sessionStorage.loggedIn));
-			var newContact = new ContactAuth();
+			var newContact = new Auth();
 			newContact.email = contact.email;
 			newContact.password = contact.password;
 			newContact.$save().then(
 				function(responseOk) {
-					console.log(contact);
 					sessionStorage.loggedIn = true;
 					sessionStorage.contact = JSON.stringify(responseOk);
 					if(contact.remember) {
@@ -35,11 +44,12 @@ angular.module('geocovApp')
 						$cookieStore.put("loggedIn", true);
 						$cookieStore.put("contact", responseOk);
 					}
+					$location.path('/compte');
 				},
 				function(error) {
-					alert("error");
+					alert(error);
 				}
-			)
+			);
 		};
 
 		$scope.reset = function() {
@@ -47,7 +57,12 @@ angular.module('geocovApp')
 		};
 
 	})
-	.controller('CompteCtrlEnre', function ($scope, $routeParams, Contact) {
+	.controller('CompteCtrlEnre', function ($scope, $location, $routeParams, Contact) {
+		//Si connecté alors impossible de se connecter à nouveau
+		if(sessionStorage.loggedIn) {
+			$location.path('/compte');
+		}
+
 		$scope.add = function(contact) {
 			var newContact = new Contact();
 			newContact.name = contact.name;
@@ -70,12 +85,31 @@ angular.module('geocovApp')
 			//du coup le $routeParams ne vas rien récupérer dans l'url
 			// newContact.contactId = $routeParams.contactId;
 
-			console.log(newContact);
-
-			newContact.$save();
+			//Connexion de l'utilisateur si son inscription est ok
+			newContact.$save()
+				function(responseOk) {
+					sessionStorage.loggedIn = true;
+					sessionStorage.contact = JSON.stringify(responseOk);
+					if(contact.remember) {
+						//Comment insérer une valeur au cookie
+						$cookieStore.put("loggedIn", true);
+						$cookieStore.put("contact", responseOk);
+					}
+					$location.path('/compte');
+				},
+				function(error) {
+					alert(error);
+				}
+			);
 		};
 
 		$scope.reset = function() {
 				$scope.contact = angular.copy({});
 		};
+	})
+	.controller('CompteCtrlDeco', function ($scope, $location) {
+		//Si on est pas connecté, alors redirection vers le formulaire de connexion
+		console.log('coucou');
+		sessionStorage.clear();
+		$location.path('/compte/auth');
 	});

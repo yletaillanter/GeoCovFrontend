@@ -25,12 +25,20 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
       .when('/compte/auth', {
         templateUrl: 'views/auth.html',
         controller: 'CompteCtrlAuth',
-        controllerAs: 'main'
+        controllerAs: 'compteAuth'
       })
       .when('/compte/register', {
         templateUrl: 'views/register.html',
         controller: 'CompteCtrlEnre',
-        controllerAs: 'main'
+        controllerAs: 'compteEnre'
+      })
+      .when('/compte/loggout', {
+        //TODO Soit trouvé une methode ou il est possible de ne pas indiqué de templateURL car inutile pour la déconnexion
+        //Soit trouvé une autre methode plus prore
+        //Soit créer une vue vide juste pour ça ? ...
+        templateUrl: 'views/auth.html',
+        controller: 'CompteCtrlDeco',
+        controllerAs: 'compteDeco'
       })
       .when('/carte', {
         templateUrl: 'views/carte.html',
