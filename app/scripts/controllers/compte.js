@@ -109,7 +109,6 @@ angular.module('geocovApp')
 	})
 	.controller('CompteCtrlDeco', function ($scope, $location) {
 		//Si on est pas connecté, alors redirection vers le formulaire de connexion
-		console.log('coucou');
 		sessionStorage.clear();
 		$location.path('/compte/auth');
 	});

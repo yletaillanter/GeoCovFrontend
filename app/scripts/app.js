@@ -53,4 +53,11 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
       .otherwise({
         redirectTo: '/'
       });
+  }])
+  .run(['$cookieStore', function($cookieStore) {
+    //Si un cookie existe alors on log la personne automatiquement
+    if($cookieStore.get('loggedIn')) {
+      sessionStorage.loggedIn = $cookieStore.get('loggedIn');
+      sessionStorage.contact = $cookieStore.get('contact');
+    }
   }]);
