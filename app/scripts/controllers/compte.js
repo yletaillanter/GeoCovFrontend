@@ -86,7 +86,7 @@ angular.module('geocovApp')
 			// newContact.contactId = $routeParams.contactId;
 
 			//Connexion de l'utilisateur si son inscription est ok
-			newContact.$save()
+			newContact.$save().then(
 				function(responseOk) {
 					sessionStorage.loggedIn = true;
 					sessionStorage.contact = JSON.stringify(responseOk);
