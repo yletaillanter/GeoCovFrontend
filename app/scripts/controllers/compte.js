@@ -20,8 +20,11 @@ angular.module('geocovApp')
 		//Si on est pas connecté, alors redirection vers le formulaire de connexion
 		if(!sessionStorage.loggedIn) {
 			$location.path('/compte/auth');
+		} else {
+			$scope.contact = {
+    			name: sessionStorage.contact.Name
+			}
 		}
-
 	})
 	.controller('CompteCtrlAuth', function ($scope, $routeParams, $location, Auth, $cookieStore) {
 		//Si connecté alors impossible de se connecter à nouveau

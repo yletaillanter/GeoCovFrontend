@@ -8,51 +8,57 @@
  * Controller of the geocovApp
  */
 angular.module('geocovApp')
-  .controller('CarteCtrl', function ($scope) {
+  .controller('CarteCtrl', function ($scope, $location) {
+
+
+    if(!sessionStorage.loggedIn) {
+      $location.path('/compte/auth');
+    } else {
+
     /*
     Solution 2 - déroulement :
 
     Clique sur bouton de recherche
     Récupération dans la base de données des personnes et des groupes < 4 personnes et non vérouillé
     */
+      $scope.initMap = function() {
+        var carte = {
+          center:new google.maps.LatLng(48.110992,-1.667973),
+          zoom:13,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+        var map=new google.maps.Map(document.getElementById("map"),carte);
 
-    $scope.initMap = function() {
-      var carte = {
-        center:new google.maps.LatLng(48.110992,-1.667973),
-        zoom:13,
-        mapTypeId:google.maps.MapTypeId.ROADMAP
+        //création du marqueur
+        var marqueur = new google.maps.Marker({
+          position: new google.maps.LatLng(48.110992,-1.667973),
+          map: map
+        });
+
+        var contenuInfoBulle = '<h1>Informations du groupe</h1>' +
+          '<ul><li>Nom du groupe : Koujoukoujoukou</li>' +
+          '<li>Nombre de personne : 2</li>' +
+          '<li>Nom des personnes : Leon P., Yoann L.</li>' +
+          '</ul>';
+
+        var infoBulle = new google.maps.InfoWindow({
+          content: contenuInfoBulle
+        });
+
+        //google.maps.event.addListener(marqueur,'mouseover', function() {
+          //alert("Je suis dessus");
+        //});
+
+        //google.maps.event.addListener(marqueur,'mouseout', function() {
+  	/*code qui doit s'executer lors de l'evenement*/
+        //});
+
+        google.maps.event.addListener(marqueur, 'click', function() {
+          infoBulle.open(map, marqueur);
+        });
+
       };
-      var map=new google.maps.Map(document.getElementById("map"),carte);
-
-      //création du marqueur
-      var marqueur = new google.maps.Marker({
-        position: new google.maps.LatLng(48.110992,-1.667973),
-        map: map
-      });
-
-      var contenuInfoBulle = '<h1>Informations du groupe</h1>' +
-        '<ul><li>Nom du groupe : Koujoukoujoukou</li>' +
-        '<li>Nombre de personne : 2</li>' +
-        '<li>Nom des personnes : Leon P., Yoann L.</li>' +
-        '</ul>';
-
-      var infoBulle = new google.maps.InfoWindow({
-        content: contenuInfoBulle
-      });
-
-      //google.maps.event.addListener(marqueur,'mouseover', function() {
-        //alert("Je suis dessus");
-      //});
-
-      //google.maps.event.addListener(marqueur,'mouseout', function() {
-	/*code qui doit s'executer lors de l'evenement*/
-      //});
-
-      google.maps.event.addListener(marqueur, 'click', function() {
-        infoBulle.open(map, marqueur);
-      });
-
-    };
+    }
 });
 
 /*
