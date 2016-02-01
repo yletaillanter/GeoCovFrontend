@@ -20,13 +20,12 @@ angular.module('geocovApp')
 		//Si on est pas connecté, alors redirection vers le formulaire de connexion
 		if(!sessionStorage.loggedIn) {
 			$location.path('/compte/auth');
-		} else {
-			$scope.contact = {
-    			name: sessionStorage.contact.Name
-			}
 		}
+
+		$scope.contact = JSON.parse(sessionStorage.contact);
+
 	})
-	.controller('CompteCtrlAuth', function ($scope, $routeParams, $location, Auth, $cookieStore) {
+	.controller('CompteCtrlAuth', function ($scope, $routeParams, $location, $cookies, Auth) {
 		//Si connecté alors impossible de se connecter à nouveau
 		if(sessionStorage.loggedIn) {
 			$location.path('/compte');
@@ -44,8 +43,8 @@ angular.module('geocovApp')
 					sessionStorage.contact = JSON.stringify(responseOk);
 					if(contact.remember) {
 						//Comment insérer une valeur au cookie
-						$cookieStore.put("loggedIn", true);
-						$cookieStore.put("contact", responseOk);
+						$cookies.put("loggedIn", true);
+						$cookies.putObject("contact", responseOk.toJSON());
 					}
 					$location.path('/compte');
 				},
@@ -60,7 +59,7 @@ angular.module('geocovApp')
 		};
 
 	})
-	.controller('CompteCtrlEnre', function ($scope, $location, $routeParams, Contact) {
+	.controller('CompteCtrlEnre', function ($scope, $location, $routeParams, $cookies, Contact) {
 		//Si connecté alors impossible de se connecter à nouveau
 		if(sessionStorage.loggedIn) {
 			$location.path('/compte');
@@ -68,25 +67,14 @@ angular.module('geocovApp')
 
 		$scope.add = function(contact) {
 			var newContact = new Contact();
+			if(contact.password!==contact.cpassword){
+				return false;
+			}
 			newContact.name = contact.name;
 			newContact.lastname = contact.lastname;
-			newContact.username = contact.username;
-
-			// TODO Manque le champs cpassword du coup pas de verification possible est plantage directement
-			// if(contact.password!==contact.cpassword){
-			// 	return false;
-			// }
-
 			newContact.password = contact.password;
-			//newContact.cpassword = contact.cpassword;
 			newContact.email = contact.email;
 			newContact.phone = contact.phone;
-			newContact.city = contact.city;
-			newContact.street = contact.street;
-			newContact.street = contact.street;
-			//TODO normalement pas d'id ici car client pas encore créé
-			//du coup le $routeParams ne vas rien récupérer dans l'url
-			// newContact.contactId = $routeParams.contactId;
 
 			//Connexion de l'utilisateur si son inscription est ok
 			newContact.$save().then(
@@ -95,8 +83,8 @@ angular.module('geocovApp')
 					sessionStorage.contact = JSON.stringify(responseOk);
 					if(contact.remember) {
 						//Comment insérer une valeur au cookie
-						$cookieStore.put("loggedIn", true);
-						$cookieStore.put("contact", responseOk);
+						$cookies.put("loggedIn", true);
+						$cookies.putObject("contact", responseOk.toJSON());
 					}
 					$location.path('/compte');
 				},

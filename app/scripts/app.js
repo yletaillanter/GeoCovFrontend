@@ -54,10 +54,10 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         redirectTo: '/'
       });
   }])
-  .run(['$cookieStore', function($cookieStore) {
+  .run(['$cookies', function($cookies) {
     //Si un cookie existe alors on log la personne automatiquement
-    if($cookieStore.get('loggedIn')) {
-      sessionStorage.loggedIn = $cookieStore.get('loggedIn');
-      sessionStorage.contact = $cookieStore.get('contact');
+    if($cookies.get('loggedIn')) {
+      sessionStorage.loggedIn = $cookies.get('loggedIn');
+      sessionStorage.contact = JSON.stringify($cookies.getObject('contact'));
     }
   }]);
