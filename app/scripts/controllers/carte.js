@@ -10,7 +10,6 @@
 angular.module('geocovApp')
   .controller('CarteCtrl', function ($scope, $location) {
 
-
     if(!sessionStorage.loggedIn) {
       $location.path('/compte/auth');
     } else {
@@ -22,43 +21,69 @@ angular.module('geocovApp')
     Récupération dans la base de données des personnes et des groupes < 4 personnes et non vérouillé
     */
       $scope.initMap = function() {
+
+      var centre = new google.maps.LatLng(48.110992,-1.667973);
+      //var centre = new google.maps.LatLng(48.115798,-1.706017);
+      var distance_max = 1500;
+      var myArray = [[48.110081,-1.677181,'nom1',3],[48.110092,-1.667953,'nom2',4],[48.100900,-1.667973,'nom3',3],[48.107853,-1.701493,'nom4',3],[48.118129,-1.707957,'nom5',4],[48.118809,-1.706444,'nom6',1],[48.120506,-1.709652,'nom7',2],[48.115973,-1.648463,'nom8',1],[48.119898,-1.646596,'nom9',3],[48.125907,-1.641596,'nom10',4]];
+
         var carte = {
-          center:new google.maps.LatLng(48.110992,-1.667973),
+          center:centre,
           zoom:13,
           mapTypeId:google.maps.MapTypeId.ROADMAP
         };
         var map=new google.maps.Map(document.getElementById("map"),carte);
 
-        //création du marqueur
-        var marqueur = new google.maps.Marker({
-          position: new google.maps.LatLng(48.110992,-1.667973),
+        //création du marqueur centrale
+        var marqueurCentre = new google.maps.Marker({
+          position: centre,
           map: map
         });
 
-        var contenuInfoBulle = '<h1>Informations du groupe</h1>' +
-          '<ul><li>Nom du groupe : Koujoukoujoukou</li>' +
-          '<li>Nombre de personne : 2</li>' +
-          '<li>Nom des personnes : Leon P., Yoann L.</li>' +
-          '</ul>';
+        var contenuInfoBulleCentre = '<h1>Vous êtes ici</h1>';
 
-        var infoBulle = new google.maps.InfoWindow({
-          content: contenuInfoBulle
+        var infoBulleCentre = new google.maps.InfoWindow({
+          content: contenuInfoBulleCentre
         });
 
-        //google.maps.event.addListener(marqueur,'mouseover', function() {
-          //alert("Je suis dessus");
-        //});
-
-        //google.maps.event.addListener(marqueur,'mouseout', function() {
-  	/*code qui doit s'executer lors de l'evenement*/
-        //});
-
-        google.maps.event.addListener(marqueur, 'click', function() {
-          infoBulle.open(map, marqueur);
+        google.maps.event.addListener(marqueurCentre, 'click', function() {
+          infoBulleCentre.open(map, marqueurCentre);
         });
 
+        //création des autres marqueurs
+        for (var it = 0; it < myArray.length; it++) {
+          var position = new google.maps.LatLng(myArray[it][0],myArray[it][1]);
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(centre, position);
+
+	  if ((distance <= distance_max) && (myArray[it][3] < 4)){
+            createMarker(position, map, myArray[it][2], myArray[it][3])
+          }
+        }
       };
     }
+
+  function createMarker(position, map, nom, nb){
+    var marqueur = new google.maps.Marker({
+      position: position,
+      map: map
+    });
+
+    var contenuInfoBulle = '<h1>Informations du groupe</h1>' +
+      '<ul><li>Nom du groupe : '+ nom +'</li>' +
+      '<li>Nombre de personne : '+ nb +'</li>' +
+      '<li>Nom des personnes : Leon P., Yoann L.</li>' +
+      '</ul>'+
+      '<button type="button">Adhérer</button>';
+
+    var infoBulle = new google.maps.InfoWindow({
+      content: contenuInfoBulle
+    });
+          
+    google.maps.event.addListener(marqueur, 'click', function() {
+      infoBulle.open(map, marqueur);
+    });
+  }
+
 });
 
 /*
@@ -83,5 +108,17 @@ Sachant que les personnes arrivent au compte goutte, on leur propose directement
 Si sélection groupe : adhésion au groupe
 Si personne seul : demande de formation de groupe.
 
+evenement de la carte:
+google.maps.event.addListener(marqueur,'mouseover', function() {
+  alert("Je suis dessus");
+});
+
+google.maps.event.addListener(marqueur,'mouseout', function() {
+  code qui doit s'executer lors de l'evenement
+});
+
+google.maps.event.addListener(marqueur, 'click', function() {
+  infoBulle.open(map, marqueur);
+});
 --------------------------------------------------------------------
 */
