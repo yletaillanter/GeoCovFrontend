@@ -15,26 +15,31 @@ angular.module('geocovApp')
     } else {
 */
 
-/*
-  //If user submits the form
-  $("#submitmsg").click(function(){	
-    var clientmsg = $("#usermsg").val();
-    $.post("post.php", {text: clientmsg});				
-    $("#usermsg").attr("value", "");
-    return false;
-  });
-*/
-
-
     $scope.initChat = function() {
       //Récupération des anciens messages
+      var messages =[["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"], ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],["Julie G.","03/02/2015", "Grrrrr..."],["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"], ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],["Julie G.","03/02/2015", "Grrrrr..."],["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"], ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],["Julie G.","03/02/2015", "Grrrrr..."]];
+
+      for(var it = 0; it < messages.length; it++){
+        $('#mess_prec').append('[' + messages[it][1] +']' +' > <span class="membre" style="text-decoration: underline;">' + messages[it][0] + '</span> ' + messages[it][2] + '<br/>');
+      }
+
+      //Mettre le scroll en bas
+      //element = document.getElementById('conversation');
+      document.getElementById("conversation").scrollTop=document.getElementById("conversation").scrollHeight;
     };
 
     $scope.chatbox = function() {
       var mess = document.getElementById("message");
-      $('#mess_prec').append(mess.value + "<br/>");
+      var nom = "Julie G.";
+      var date = new Date();
+      var dateDetail = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' + date.getHours() + ':'+ date.getMinutes();
+
+      $('#mess_prec').append('['+dateDetail+']' + ' > <span class="membre" style="text-decoration: underline;">' + nom + '</span> ' + mess.value + '<br/>');
       //enregistrement du message (?)
       mess.value="";
+
+      //Mettre le scroll en bas
+      document.getElementById("conversation").scrollTop=document.getElementById("conversation").scrollHeight;
     }
 
 
@@ -75,6 +80,6 @@ angular.module('geocovApp')
     }
 
 
- // }
+  //}
 });
 

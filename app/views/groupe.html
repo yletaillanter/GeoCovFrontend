@@ -7,12 +7,12 @@
     </div>
 
     <div class="chat">
-      <div id="conversation"></div>
+      <div id="conversation"><p><span id="mess_prec" ng-init="initChat()"></span></p></div>
      
       <!--<form name="message" action="">
       <div id="message">-->
         <input name="usermsg" type="text" id="message" />
-        <input name="submitmsg" type="submit"  id="envoyer" value="Répondre" />
+        <button id="envoyer" ng-click="chatbox()">Répondre</button>
        <!--</div>
      </form>-->
 

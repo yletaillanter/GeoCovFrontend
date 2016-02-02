@@ -16,9 +16,8 @@
   text-align: left;
 }
 
-.info_importante .membre #mapGroupe {
+.info_importante .membre {
   text-decoration: underline;
-  width:500px;
 }
 
 #mapGroupe{
@@ -53,8 +52,7 @@
   height: 300px;
   border: black 1px solid;
   background-color: #efecca;
-  overflow-x: hidden;
-  overflow-y: scroll; 
+  overflow : scroll;
   padding: 2px;
   margin: 2px 2px 0px 2px;
 }
