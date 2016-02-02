@@ -15,9 +15,9 @@ angular.module('geocovApp')
   //Add address controller, used to split correcly each controller
   .controller('AdresseAddCtrl', function ($scope, $routeParams, $location, Adresse) {
 
-    if(!sessionStorage.loggedIn) {
-      $location.path('/compte/auth');
-    } else {
+    // if(!sessionStorage.loggedIn) {
+    //   $location.path('/compte/auth');
+    // } else {
       // Add Function used to add new adress in the server
       //TODO Get Lat & Long parameters with getLatLong function
       //TODO Complete this function
@@ -50,8 +50,27 @@ angular.module('geocovApp')
 
       // Function used to set geodata
       //TODO Complete this function
-      $scope.setLatLong = function(data) {
-        return data;
+      $scope.setLatLong = function (geocoder, resultsMap) {
+         var ville = document.getElementById('ville').value;
+         var rue = document.getElementById('rue').value;
+         var numero = document.getElementById('numero').value;
+         
+         var address = ville+", "+rue+", "+numero;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
       };
     }
+
+   // TO CALL THIS FUNCTION - USE THE FOLLOWING SYNTAX:
+  // document.getElementById('submit').addEventListener('click', function() {
+  //   setLatLong(geocoder, map);
+  // });
   });
