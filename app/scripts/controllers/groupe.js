@@ -25,12 +25,18 @@ angular.module('geocovApp')
   });
 */
 
-/*
-    $scope.initChat = function() {
-      var mess = $("#message").val();
 
+    $scope.initChat = function() {
+      //Récupération des anciens messages
     };
-*/
+
+    $scope.chatbox = function() {
+      var mess = document.getElementById("message");
+      $('#mess_prec').append(mess.value + "<br/>");
+      //enregistrement du message (?)
+      mess.value="";
+    }
+
 
     $scope.initMapGroupe = function() {
       var centre = new google.maps.LatLng(48.110992,-1.667973);
