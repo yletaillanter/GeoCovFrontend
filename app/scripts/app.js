@@ -50,6 +50,11 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'AdresseAddCtrl',
         controllerAs: 'adresse'
       })
+     .when('/groupe', {
+        templateUrl: 'views/groupe.html',
+        controller: 'GroupeCtrl',
+        controllerAs: 'groupe'
+      })
       .otherwise({
         redirectTo: '/'
       });

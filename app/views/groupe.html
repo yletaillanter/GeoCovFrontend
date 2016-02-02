@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row main">
+
+    <div class="bouton_groupe">
+      <input type="button" name="lock" value="Verrouiller" onclick=""/>
+      <input type="button" name="leave" value="Quitter le groupe" onclick=""/>
+    </div>
+
+    <div class="chat">
+      <div id="conversation"></div>
+     
+      <!--<form name="message" action="">
+      <div id="message">-->
+        <input name="usermsg" type="text" id="message" />
+        <input name="submitmsg" type="submit"  id="envoyer" value="Répondre" />
+       <!--</div>
+     </form>-->
+
+    </div>
+
+    <div class="info_importante">
+      <div class="legende_info">Informations importantes</div>
+      <fieldset>
+        <!--<legend class="legende_info"> Informations importantes </legend>-->
+
+        <p>
+          > <span class="membre">Personne X</span> a quitté le groupe.<br/>
+          > <span class="membre">Personne Y</span> demande à intégrer le groupe : 
+	    <input type="radio" name="integration" value="accepter" id="yes"/> <label for="yes"> Accepter </label>
+	    <input type="radio" name="integration" value="refuser" id="no"/> <label for="no"> Refuser </label>
+        </p>
+      </fieldset>
+    </div>
+
+    <div class="membres">
+      <p>Photo des membres</p>
+    </div>
+
+   <div ng-init="initMapGroupe()" id="mapGroupe"></div>
+
+  </div>
+</div>
+
