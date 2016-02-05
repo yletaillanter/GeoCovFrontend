@@ -32,6 +32,11 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'CompteCtrlEnre',
         controllerAs: 'compteEnre'
       })
+      .when('/compte/update', {
+        templateUrl: 'views/update.html',
+        controller: 'CompteCtrlUpdate',
+        controllerAs: 'compteUpdate'
+      })
       .when('/compte/loggout', {
         //TODO Soit trouvé une methode ou il est possible de ne pas indiqué de templateURL car inutile pour la déconnexion
         //Soit trouvé une autre methode plus prore

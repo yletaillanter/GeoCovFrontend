@@ -8,7 +8,7 @@
  * Controller of the geocovApp
  */
 angular.module('geocovApp')
-  .controller('GroupeCtrl', function ($scope, $location) {
+  .controller('GroupeCtrl', function ($scope) {
 /*
     if(!sessionStorage.loggedIn) {
       $location.path('/compte/auth');
@@ -17,9 +17,19 @@ angular.module('geocovApp')
 
     $scope.initChat = function() {
       //Récupération des anciens messages
-      var messages =[["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"], ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],["Julie G.","03/02/2015", "Grrrrr..."],["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"], ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],["Julie G.","03/02/2015", "Grrrrr..."],["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"], ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],["Julie G.","03/02/2015", "Grrrrr..."]];
+      var messages =[
+        ["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"],
+        ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],
+        ["Julie G.","03/02/2015", "Grrrrr..."],
+        ["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"],
+        ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],
+        ["Julie G.","03/02/2015", "Grrrrr..."],
+        ["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"],
+        ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],
+        ["Julie G.","03/02/2015", "Grrrrr..."]
+      ];
 
-      for(var it = 0; it < messages.length; it++){
+      for(var it = 0; it < messages.length; it++) {
         $('#mess_prec').append('[' + messages[it][1] +']' +' > <span class="membre" style="text-decoration: underline;">' + messages[it][0] + '</span> ' + messages[it][2] + '<br/>');
       }
 
@@ -40,7 +50,7 @@ angular.module('geocovApp')
 
       //Mettre le scroll en bas
       document.getElementById("conversation").scrollTop=document.getElementById("conversation").scrollHeight;
-    }
+    };
 
 
     $scope.initMapGroupe = function() {
@@ -57,7 +67,7 @@ angular.module('geocovApp')
       //création des autres marqueurs
       for (var it = 0; it < myArray.length; it++) {
         var position = new google.maps.LatLng(myArray[it][0],myArray[it][1]);
-        createMarker(position, map, myArray[it][2])
+        createMarker(position, map, myArray[it][2]);
       }
 
     };
@@ -73,7 +83,7 @@ angular.module('geocovApp')
       var infoBulle = new google.maps.InfoWindow({
         content: contenuInfoBulle
       });
-          
+
       google.maps.event.addListener(marqueur, 'click', function() {
         infoBulle.open(map, marqueur);
       });
@@ -82,4 +92,3 @@ angular.module('geocovApp')
 
   //}
 });
-
