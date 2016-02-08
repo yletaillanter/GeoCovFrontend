@@ -26,29 +26,22 @@
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="#/">geocov</a>
           </div>
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+          <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="HeaderController">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
+              <li ng-class="{ active: isActive('/home')}"><a href="#/">Home</a></li>
               <!-- <li><a href="#/compte">Mon Compte</a></li> -->
-              <li class="dropdown">
+              <li class="dropdown" ng-class="{ active: isActive('/compte')}">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon Compte <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="#/compte">Présentation</a></li>
                   <li><a href="#/compte/update">Modifier mes données personnelles</a></li>
-                  <li><a href="#/adresse">Gérer mes adresses</a></li>
+                  <li><a href="#/compte/updateAd">Gérer mes adresses</a></li>
                 </ul>
               </li>
-              <li><a href="#/carte">La Carte</a></li>
-              <li><a href="#/groupe">Mon groupe</a></li>
-              <!-- <li><a ng-href="#/adresse">Ajouter une adresse</a></li> -->
+              <li ng-class="{ active: isActive('/carte')}"><a href="#/carte">La Carte</a></li>
+              <li ng-class="{ active: isActive('/groupe')}"><a href="#/groupe">Mon groupe</a></li>
             </ul>
           </div>
         </div>
@@ -101,6 +94,7 @@
     <script src="scripts/controllers/compte.js"></script>
     <script src="scripts/controllers/groupe.js"></script>
     <script src="scripts/controllers/adresse.js"></script>
+    <script src="scripts/controllers/navbar.js"></script>
     <!-- endbuild -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </body>

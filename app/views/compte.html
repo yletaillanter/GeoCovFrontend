@@ -3,7 +3,7 @@
     <h1>Bonjour {{ contact.name +" "+ contact.lastname }}</h1>
     <p>Rajouter changement d'adresse, changement KM de visisbilité, changement d'information ? </p>
 
-    <p>Your address: {{ contact.adresses[contact.id-1].numero +", "+ contact.adresses[contact.id-1].rue +", "+ contact.adresses[contact.id-1].ville }}</p>
+    <p>Your address: {{ contact.adresses[0].numero +", "+ contact.adresses[0].rue +", "+ contact.adresses[0].ville }}</p>
     <!-- <div class="bar">
       <a class="btn btn-default" href="#/compte/update">Modifier ces informations</a>
     </div> -->
