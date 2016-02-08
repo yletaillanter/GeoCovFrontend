@@ -15,9 +15,6 @@ angular.module('geocovApp')
   //Add address controller, used to split correcly each controller
   .controller('AdresseAddCtrl', function ($scope, $routeParams, $location, Adresse) {
 
-    $scope.lati = null;
-    $scope.longi = null;
-
     // if(!sessionStorage.loggedIn) {
     //   $location.path('/compte/auth');
     // } else {
@@ -25,13 +22,13 @@ angular.module('geocovApp')
       //TODO Get Lat & Long parameters with getLatLong function
       //TODO Complete this function
       $scope.add = function(adresse) {
-  
+
               var newAddress = new Adresse();
               newAddress.numero = adresse.numero;
               newAddress.rue = adresse.rue;
               newAddress.cp = adresse.cp;
               newAddress.ville = adresse.ville;
-              newAddress.end = false;
+              newAddress.end = adresse.travail;
               newAddress.clients = [JSON.parse(sessionStorage.contact)];
 
               $scope.getLatLong(adresse.numero+" "+adresse.rue+" "+adresse.cp+" "+adresse.ville, newAddress);
@@ -46,12 +43,13 @@ angular.module('geocovApp')
         console.log(lat);
         console.log(lng);
         client.latitude = lat;
-        client.longitude = lng; 
+        client.longitude = lng;
 
         console.log(client);
+        console.log(JSON.stringify(client));
 
-        client.$save();
-      }
+        // client.$save();
+      };
 
       // Function used to collect geodata from address
       $scope.getLatLong = function(adresse, client) {
@@ -66,29 +64,30 @@ angular.module('geocovApp')
         });
       };
 
+
       // Function used to set geodata
       //TODO Complete this function
-      $scope.setLatLong = function (geocoder, resultsMap) {
-         var ville = document.getElementById('ville').value;
-         var rue = document.getElementById('rue').value;
-         var numero = document.getElementById('numero').value;
-         
-         var address = ville+", "+rue+", "+numero;
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
-            });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-      });
-    }
+      // $scope.setLatLong = function (geocoder, resultsMap) {
+      //    var ville = document.getElementById('ville').value;
+      //    var rue = document.getElementById('rue').value;
+      //    var numero = document.getElementById('numero').value;
+      //
+      //    var address = ville+", "+rue+", "+numero;
+      //    geocoder.geocode({'address': address}, function(results, status) {
+      //      if (status === google.maps.GeocoderStatus.OK) {
+      //        resultsMap.setCenter(results[0].geometry.location);
+      //        var marker = new google.maps.Marker({
+      //          map: resultsMap,
+      //          position: results[0].geometry.location
+      //        });
+      //      } else {
+      //        alert('Geocode was not successful for the following reason: ' + status);
+      //      }
+      //   });
+      // }
 
-   // TO CALL THIS FUNCTION - USE THE FOLLOWING SYNTAX:
-  // document.getElementById('submit').addEventListener('click', function() {
-  //   setLatLong(geocoder, map);
-  // });
+      // TO CALL THIS FUNCTION - USE THE FOLLOWING SYNTAX:
+      // document.getElementById('submit').addEventListener('click', function() {
+      //   setLatLong(geocoder, map);
+      // });
   });
