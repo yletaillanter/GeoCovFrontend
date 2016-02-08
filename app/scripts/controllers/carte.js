@@ -22,7 +22,11 @@ angular.module('geocovApp')
     */
       $scope.initMap = function() {
 
-      var centre = new google.maps.LatLng(48.110992,-1.667973);
+      // On recupère le contact dans la variable de session
+      var contact = JSON.parse(sessionStorage.contact);
+
+      // On créer un marqueur avec l'adresse de départ de la personne
+      var centre = new google.maps.LatLng(contact.adresses[0].latitude,contact.adresses[0].longitude);
       //var centre = new google.maps.LatLng(48.115798,-1.706017);
       var distance_max = 1500;
       var myArray = [

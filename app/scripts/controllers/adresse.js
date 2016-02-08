@@ -15,6 +15,9 @@ angular.module('geocovApp')
   //Add address controller, used to split correcly each controller
   .controller('AdresseAddCtrl', function ($scope, $routeParams, $location, Adresse) {
 
+    $scope.lati = null;
+    $scope.longi = null;
+
     // if(!sessionStorage.loggedIn) {
     //   $location.path('/compte/auth');
     // } else {
@@ -22,12 +25,16 @@ angular.module('geocovApp')
       //TODO Get Lat & Long parameters with getLatLong function
       //TODO Complete this function
       $scope.add = function(adresse) {
+  
               var newAddress = new Adresse();
               newAddress.numero = adresse.numero;
               newAddress.rue = adresse.rue;
               newAddress.cp = adresse.cp;
               newAddress.ville = adresse.ville;
-              newAddress.$save();
+              newAddress.end = false;
+              newAddress.clients = [JSON.parse(sessionStorage.contact)];
+
+              $scope.getLatLong(adresse.numero+" "+adresse.rue+" "+adresse.cp+" "+adresse.ville, newAddress);
       };
 
       // Reset function used to reset form
@@ -35,13 +42,24 @@ angular.module('geocovApp')
           $scope.adresse = angular.copy({});
       };
 
+      $scope.getLatLongBis = function(lat, lng, client){
+        console.log(lat);
+        console.log(lng);
+        client.latitude = lat;
+        client.longitude = lng; 
+
+        console.log(client);
+
+        client.$save();
+      }
+
       // Function used to collect geodata from address
-      $scope.getLatLong = function(adresse) {
+      $scope.getLatLong = function(adresse, client) {
         console.log(adresse);
         var geo = new google.maps.Geocoder();
         geo.geocode({'address':adresse},function(results, status){
           if (status === google.maps.GeocoderStatus.OK) {
-            $scope.setLatLong(results[0].geometry.location);
+            $scope.getLatLongBis(results[0].geometry.location.lat(),results[0].geometry.location.lng(), client);
           } else {
             console.log('Geocode was not successful for the following reason: ' + status);
           }
@@ -66,7 +84,7 @@ angular.module('geocovApp')
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-      };
+      });
     }
 
    // TO CALL THIS FUNCTION - USE THE FOLLOWING SYNTAX:
