@@ -184,6 +184,72 @@ angular.module('geocovApp')
 		};
 	})
 	/**
+	 * Controller utilisé pour la modification d'une adresse
+	 */
+	.controller('CompteCtrlAdresse', function ($scope, $location, $cookies, Contact) {
+		if(!sessionStorage.loggedIn) {
+			$location.path('/compte/auth');
+		}
+
+		// On récupére les données du contact stocké dans la session pour l'id du client
+		$scope.contact = JSON.parse(sessionStorage.contact);
+
+		/**
+		 * Fonction permettant de récupérer les données du formulaire d'ajout d'adresse
+		 */
+		$scope.updateAd = function(adresse) {
+			var updateContact = new Contact();
+			// On récupére l'ID de l'utilisateur afin de pouvoir le retrouver par la suite.
+			updateContact.id = $scope.contact.id;
+			// On concatène toute l'adresse pour requêter les coordonnées GPS à Google
+			var adresseConcat = adresse.numero+" "+adresse.rue+" "+adresse.cp+" "+adresse.ville;
+			// On effectue la requête à Google
+			var geo = new google.maps.Geocoder();
+			geo.geocode({'address':adresseConcat},function(results, status){
+				// Si google nous renvois de bon résultat.
+				if (status === google.maps.GeocoderStatus.OK) {
+					// On envoie les données a une fonction permettant de faire l'ajout
+					// quand on reçoit les données et pas à un autre moment
+					// Voir requête ajax asynchrone
+					$scope.setLatLong(results[0].geometry.location.lat(),results[0].geometry.location.lng(), updateContact, adresse);
+				}
+				// Sinon on print l'erreur dans la console
+				else {
+					console.log('Geocode was not successful for the following reason: ' + status);
+				}
+			});
+		};
+
+		/**
+		 * Fonction permettant de lancer l'étape de mise à jour pour une adresse avec le serveur.
+		 */
+		$scope.setLatLong = function(lat, lng, client, adresse){
+			adresse.latitude = lat;
+			adresse.longitude = lng;
+			client.adresses = [adresse];
+			//Permet d'effectuer la requête au serveur
+			client.$update().then(
+				// Si la réponse du serveur est positive alors on met à jours nos informations stocké en session
+				function(data) {
+					sessionStorage.contact = JSON.stringify(data);
+					if ($cookies.get("loggedIn")) {
+						$cookies.putObject("contact", data.toJSON());
+					}
+					// Redirection vers la page 'Mon compte'
+					$location.path('/compte');
+				},
+				function(error) {
+						console.log(error);
+				}
+			);;
+		};
+
+		// Fonction permettant de réinitialiser le formulaire de mise à jours des informations personnels
+		$scope.reset = function() {
+				$scope.contact = angular.copy({});
+		};
+	})
+	/**
 	 * Controller utilisé pour la deconnexion à notre session
 	 */
 	.controller('CompteCtrlDeco', function ($scope, $location) {
