@@ -1,11 +1,14 @@
 <div class="container">
   <div class="row main">
-    <h1>Bonjour {{ contact.name }}</h1>
+    <h1>Bonjour {{ contact.name +" "+ contact.lastname }}</h1>
     <p>Rajouter changement d'adresse, changement KM de visisbilité, changement d'information ? </p>
 
-    <div class="bar">
+    <p>Your address: {{ contact.adresses[contact.id-1].numero +", "+ contact.adresses[contact.id-1].rue +", "+ contact.adresses[contact.id-1].ville }}</p>
+    <!-- <div class="bar">
       <a class="btn btn-default" href="#/compte/update">Modifier ces informations</a>
-      <a class="btn btn-default" href="#/compte/updateAd">Ajouter une adresses</a>
+    </div> -->
+
+    <div class="bar">
       <a class="btn btn-default" href="#/compte/loggout">se deconnecter</a>
     </div>
 
