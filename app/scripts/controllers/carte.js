@@ -9,7 +9,6 @@
  */
 angular.module('geocovApp')
   .controller('CarteCtrl', function ($scope, $location) {
-
     if(!sessionStorage.loggedIn) {
       $location.path('/compte/auth');
     } else {
@@ -27,19 +26,34 @@ angular.module('geocovApp')
 
       // On créer un marqueur avec l'adresse de départ de la personne
       var centre = new google.maps.LatLng(contact.adresses[0].latitude,contact.adresses[0].longitude);
+      var arrive = new google.maps.LatLng(contact.adresses[1].latitude,contact.adresses[1].longitude);
+      //var arrive = new google.maps.LatLng(48.136721,-1.622180);
       //var centre = new google.maps.LatLng(48.115798,-1.706017);
       var distance_max = 1500;
       var myArray = [
-        [48.110081,-1.677181,'nom1',3],
-        [48.110092,-1.667953,'nom2',4],
-        [48.100900,-1.667973,'nom3',3],
-        [48.107853,-1.701493,'nom4',3],
-        [48.118129,-1.707957,'nom5',4],
-        [48.118809,-1.706444,'nom6',1],
-        [48.120506,-1.709652,'nom7',2],
-        [48.115973,-1.648463,'nom8',1],
-        [48.119898,-1.646596,'nom9',3],
-        [48.125907,-1.641596,'nom10',4]
+        [48.110081,-1.677181,48.136721,-1.622180,'nom1',3],
+        [48.110092,-1.667953,48.106828,-1.731601,'nom2',4],
+        [48.100900,-1.667973,48.136721,-1.622180,'nom3',3],
+        [48.107853,-1.701493,48.106828,-1.731601,'nom4',3],
+        [48.118129,-1.707957,48.102624,-1.672220,'nom5',4],
+        [48.118809,-1.706444,48.106828,-1.731601,'nom6',1],
+        [48.120506,-1.709652,48.136721,-1.622180,'nom7',2],
+        [48.115973,-1.648463,48.106828,-1.731601,'nom8',1],
+        [48.119898,-1.646596,48.136721,-1.622180,'nom9',3],
+        [48.125907,-1.641596,48.136721,-1.622180,'nom10',4]
+      ];
+
+      var persSeul = [
+        [48.110081,-1.671181,48.136721,-1.622180,'nomPers1'],
+        [48.110092,-1.663953,48.106828,-1.731601,'nomPers2'],
+        [48.100900,-1.662273,48.106828,-1.731601,'nomPers3'],
+        [48.107853,-1.701993,48.136721,-1.622180,'nomPers4'],
+        [48.118129,-1.707157,48.136721,-1.622180,'nomPers5'],
+        [48.118809,-1.705144,48.102624,-1.672220,'nomPers6'],
+        [48.120506,-1.709752,48.106828,-1.731601,'nomPers7'],
+        [48.115973,-1.648963,48.102624,-1.672220,'nomPers8'],
+        [48.119898,-1.646296,48.106828,-1.731601,'nomPers9'],
+        [48.125907,-1.641996,48.106828,-1.731601,'nomPers10']
       ];
 
         var carte = {
@@ -49,46 +63,108 @@ angular.module('geocovApp')
         };
         var map=new google.maps.Map(document.getElementById("map"),carte);
 
-        //création du marqueur centrale
-        var marqueurCentre = new google.maps.Marker({
-          position: centre,
-          map: map
-        });
-
-        var contenuInfoBulleCentre = '<h1>Vous êtes ici</h1>';
-
-        var infoBulleCentre = new google.maps.InfoWindow({
-          content: contenuInfoBulleCentre
-        });
-
-        google.maps.event.addListener(marqueurCentre, 'click', function() {
-          infoBulleCentre.open(map, marqueurCentre);
-        });
+        //création des marqueurs de la personne
+        createMarker("centre", centre, map, []);
+        createMarker("arrive", arrive, map, []);
 
         //création des autres marqueurs
-        for (var it = 0; it < myArray.length; it++) {
-          var position = new google.maps.LatLng(myArray[it][0],myArray[it][1]);
-          var distance = google.maps.geometry.spherical.computeDistanceBetween(centre, position);
+        var max = 0;
+        if (myArray.length < persSeul.length)
+          max = persSeul.length;
+        else
+          max = myArray.length;
 
-	  if ((distance <= distance_max) && (myArray[it][3] < 4)){
-            createMarker(position, map, myArray[it][2], myArray[it][3]);
+        var positionDepart = "";
+        var positionArrive = "";
+        var distanceDepart = "";
+        var distanceArrive = "";
+
+        for (var it = 0; it < max; it++) {
+          if(it < myArray.length){
+            positionDepart = new google.maps.LatLng(myArray[it][0],myArray[it][1]);
+            positionArrive = new google.maps.LatLng(myArray[it][2],myArray[it][3]);
+            distanceDepart = google.maps.geometry.spherical.computeDistanceBetween(centre, positionDepart);
+            distanceArrive = google.maps.geometry.spherical.computeDistanceBetween(arrive, positionArrive);
+
+            if ((distanceDepart <= distance_max && distanceArrive <= distance_max) && (myArray[it][5] < 4)){
+              createMarker("groupe", positionDepart, map, myArray[it]);
+            }
           }
-        }
+
+          if(it < persSeul.length){
+            positionDepart = new google.maps.LatLng(persSeul[it][0],persSeul[it][1]);
+            positionArrive = new google.maps.LatLng(persSeul[it][2],persSeul[it][3]);
+            distanceDepart = google.maps.geometry.spherical.computeDistanceBetween(centre, positionDepart);
+            distanceArrive = google.maps.geometry.spherical.computeDistanceBetween(arrive, positionArrive);
+
+            if (distanceDepart <= distance_max && distanceArrive <= distance_max){
+              createMarker("personne", positionDepart, map, persSeul[it]);
+            }
+          }
+
+         
+        };
       };
     }
 
-  function createMarker(position, map, nom, nb){
+  function createMarker(type, position, map, array){
     var marqueur = new google.maps.Marker({
       position: position,
       map: map
     });
 
-    var contenuInfoBulle = '<h1>Informations du groupe</h1>' +
-      '<ul><li>Nom du groupe : '+ nom +'</li>' +
-      '<li>Nombre de personne : '+ nb +'</li>' +
+    var contenuInfoBulle = "";
+    var pinIcon = "";
+
+    if (type == "groupe"){
+      pinIcon = new google.maps.MarkerImage(
+        "/images/vert_groupe.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(60, 60)
+      );
+      marqueur.setIcon(pinIcon);
+
+      contenuInfoBulle = '<h1>Informations du groupe</h1>' +
+      '<ul><li>Nom du groupe : '+ array[4] +'</li>' +
+      '<li>Nombre de personne : '+ array[5] +'</li>' +
       '<li>Nom des personnes : Leon P., Yoann L.</li>' +
       '</ul>'+
       '<button type="button">Adhérer</button>';
+    }
+
+    else if (type == "personne"){
+      pinIcon = new google.maps.MarkerImage(
+        "/images/bleu_pers.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(60, 60)
+      );
+      marqueur.setIcon(pinIcon);
+
+      contenuInfoBulle = "<h1>Informations sur l'utilisateur</h1>" +
+      "<ul><li>Prénom de la personne : "+ array[4] +"</li>" +
+      "</ul>"+
+      "<button type='button'>Faire un groupe</button>";
+    }
+
+    else if (type == "centre" || type == "arrive"){
+      pinIcon = new google.maps.MarkerImage(
+        "/images/maison.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(60, 60)
+      );
+      marqueur.setIcon(pinIcon);
+
+      if (type == "centre")
+        contenuInfoBulle = "<h1>Vous êtes ici</h1>";
+      else
+        contenuInfoBulle = "<h1>Votre point d'arrivée</h1>";
+    }
 
     var infoBulle = new google.maps.InfoWindow({
       content: contenuInfoBulle
@@ -97,8 +173,7 @@ angular.module('geocovApp')
     google.maps.event.addListener(marqueur, 'click', function() {
       infoBulle.open(map, marqueur);
     });
-  }
-
+  };
 });
 
 /*
