@@ -34,12 +34,12 @@
             </button>
             <a class="navbar-brand" href="#/">geocov</a>
           </div>
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+          <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="HeaderController">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a href="#/compte">Mon Compte</a></li>
-              <li><a href="#/carte">La Carte</a></li>
-              <li><a href="#/groupe">Mon groupe</a></li>
+              <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+              <li ng-class="{ active: isActive('/compte')}"><a href="#/compte">Mon Compte</a></li>
+              <li ng-class="{ active: isActive('/carte')}"><a href="#/carte">La Carte</a></li>
+              <li ng-class="{ active: isActive('/groupe')}"><a href="#/groupe">Mon groupe</a></li>
             </ul>
           </div>
         </div>
@@ -92,6 +92,7 @@
     <script src="scripts/controllers/compte.js"></script>
     <script src="scripts/controllers/groupe.js"></script>
     <script src="scripts/controllers/adresse.js"></script>
+    <script src="scripts/controllers/navbar.js"></script>
     <!-- endbuild -->
 </body>
 </html>

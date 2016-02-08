@@ -18,6 +18,7 @@ angular.module('geocovApp')
     // if(!sessionStorage.loggedIn) {
     //   $location.path('/compte/auth');
     // } else {
+
       // Add Function used to add new adress in the server
       //TODO Get Lat & Long parameters with getLatLong function
       //TODO Complete this function
@@ -47,7 +48,6 @@ angular.module('geocovApp')
 
         console.log(client);
         console.log(JSON.stringify(client));
-
         // client.$save();
       };
 
