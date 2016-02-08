@@ -1,12 +1,13 @@
-<div class="container">
+<div class="container" ng-init="initAffichage()">
   <div class="row main">
 
-    <div class="bouton_groupe">
-      <input type="button" name="lock" value="Verrouiller" onclick=""/>
-      <input type="button" name="leave" value="Quitter le groupe" onclick=""/>
+    <div id="bouton_groupe">
+      <input type="button" id="btn_verrouiller" name="lock" value="Verrouiller" onclick=""/>
+      <input type="button" id="btn_quitter" name="leave" value="Quitter le groupe" onclick=""/>
+      <input type="button" id="btn_adherer" name="join" value="Adhérer au groupe" onclick=""/>
     </div>
 
-    <div class="chat">
+    <div id="chat">
       <div id="conversation"><p><span id="mess_prec" ng-init="initChat()"></span></p></div>
      
       <!--<form name="message" action="">
@@ -18,7 +19,7 @@
 
     </div>
 
-    <div class="info_importante">
+    <div id="info_importante">
       <div class="legende_info">Informations importantes</div>
       <fieldset>
         <!--<legend class="legende_info"> Informations importantes </legend>-->
@@ -32,7 +33,7 @@
       </fieldset>
     </div>
 
-    <div class="membres">
+    <div id="membres">
       <p>Photo des membres</p>
     </div>
 

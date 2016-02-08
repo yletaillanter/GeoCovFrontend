@@ -15,6 +15,18 @@ angular.module('geocovApp')
     } else {
 */
 
+    $scope.initAffichage = function() {
+      if (false) {
+        document.getElementById("chat").style.display = 'none';
+        document.getElementById("info_importante").style.display = 'none';
+        document.getElementById("btn_verrouiller").style.display = 'none';
+        document.getElementById("btn_quitter").style.display = 'none';
+      }
+      else if (true){
+        document.getElementById("btn_adherer").style.display = 'none';
+      };
+    }
+
     $scope.initChat = function() {
       //Récupération des anciens messages
       var messages =[
