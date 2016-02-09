@@ -113,11 +113,6 @@ angular.module('geocovApp')
   };
 
   function createRoute(centre, destination, map){
-    /*
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
-    */
-
     var directionsDisplay = new google.maps.DirectionsRenderer({
       map   : map, 
       panel : document.getElementById("mapTrace") 
@@ -135,54 +130,6 @@ angular.module('geocovApp')
         directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
       }
     });
-/*
-    directionsService.route(request, function(result, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-         directionsDisplay.setDirections(result);
-      }
-    });
-*/
-    //directionsDisplay.setPanel(document.getElementById("mapGroupe"));
-
-    /*
-    var route;
-    var directionsService = new google.maps.DirectionsService();
-    alert(directionsService);
-    directionsService.route({origin:centre, destination:destination, travelMode:google.maps.TravelMode.DRIVING},function(result, status){
-        if(status == google.maps.DirectionsStatus.OK)
-        {
-            route = result['routes'][0]['overview_polyline']['points'];
-        }
-    });
-    var cartographie;
-    var epsg_4326 = new OpenLayers.Projection("EPSG:4326");
-    var epsg_3857 = new OpenLayers.Projection("EPSG:3857");
-    cartographie = new OpenLayers.Map('map');
-
-    // Couche "OSM"
-    var couche_osm = new OpenLayers.Layer.OSM('OpenStreetMap');
-    cartographie.addLayer(couche_osm);
-    cartographie.setCenter(new OpenLayers.LonLat(2, 48).transform(epsg_4326, epsg_3857), 7);
-
-    // Couche "Itinéraires"
-    var couche_itineraires = new OpenLayers.Layer.Vector('Itinéraires',{styleMap:new OpenLayers.StyleMap({'default':new OpenLayers.Style({strokeWidth:2,strokeColor:'red'})})});
-    cartographie.addLayer(couche_itineraires);
-
-    var trace = google.maps.geometry.encoding.decodePath(route);
-    var points = new Array();
-    for(var i in trace)
-    {
-        // On récupère les deux coordonnées en WGS84 pour en faire un objet "Point" correctement reprojeté
-        var lonlat = new OpenLayers.LonLat(trace[i].lng(), trace[i].lat()).transform(epsg_4326, epsg_3857);
-        var point = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
-        // On ajoute ce point à notre tableau de points
-        points.push(point);
-        alert(lonlat.lon +" et " + lonlat.lat);
-    }
-    // On ajoute, à notre couche d'itinéraires, un objet "Ligne" construit à partir du tableau de "Points"
-    couche_itineraires.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(points))]);
-    cartographie.zoomToExtent(couche_itineraires.getDataExtent());
-    */
   };
 
 });
