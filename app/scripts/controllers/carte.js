@@ -131,7 +131,8 @@ angular.module('geocovApp')
       '<li>Nombre de personne : '+ array[5] +'</li>' +
       '<li>Nom des personnes : Leon P., Yoann L.</li>' +
       '</ul>'+
-      '<button type="button">Adhérer</button>';
+      '<button type="button">Adhérer</button>'+
+      '<button type="button">Voir le groupe</button>';
     }
 
     else if (type == "personne"){
