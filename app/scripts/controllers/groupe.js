@@ -8,7 +8,7 @@
  * Controller of the geocovApp
  */
 angular.module('geocovApp')
-  .controller('GroupeCtrl', function ($scope) {
+  .controller('GroupeCtrl', function ($scope, $location) {
 
     if(!sessionStorage.loggedIn) {
       $location.path('/compte/auth');

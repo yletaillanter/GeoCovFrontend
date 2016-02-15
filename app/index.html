@@ -43,7 +43,11 @@
               <li ng-class="{ active: isActive('/carte')}"><a href="#/carte">La Carte</a></li>
               <li ng-class="{ active: isActive('/groupe')}"><a href="#/groupe">Mon groupe</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ng-href="#/compte/{{hash}}">{{ sign }}</a></li>
+            </ul>
           </div>
+
         </div>
       </div>
     </div>

@@ -10,4 +10,16 @@ angular.module('geocovApp')
         return ($location.path().indexOf(viewLocation) > -1);
       }
     };
+
+    $scope.$watch(function () { return sessionStorage.loggedIn },
+      function (value) {
+        if(!value) {
+          $scope.hash = "auth"
+          $scope.sign = "Se connecter"
+        } else {
+          $scope.hash = "loggout"
+          $scope.sign = "Se déconnecter"
+        }
+      }
+    );
   });
