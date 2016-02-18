@@ -145,6 +145,8 @@ angular.module('geocovApp')
 		// On récupére les données du contact stocké dans la session pour pouvoir l'afficher dans le formulaire
 		$scope.contact = JSON.parse(sessionStorage.contact);
 
+
+
 		/**
 		 * Fonction permettant de récupérer les données du formulaire de mise à jour
 		 * Puis de lancer l'étape de mise à jour avec le serveur.
@@ -185,7 +187,7 @@ angular.module('geocovApp')
 	/**
 	 * Controller utilisé pour la modification d'une adresse
 	 */
-	.controller('CompteCtrlAdresse', function ($scope, $location, $cookies, $http, Contact) {
+	.controller('CompteCtrlAdresse', function ($scope, $location, $cookies, Contact) {
 		if(!sessionStorage.loggedIn) {
 			$location.path('/compte/auth');
 		}
@@ -193,39 +195,27 @@ angular.module('geocovApp')
 		// On récupére les données du contact stocké dans la session pour l'id du client
 		$scope.contact = JSON.parse(sessionStorage.contact);
 
-		$http({
-		  method: 'GET',
-		  url: 'http://localhost\:8080/adresse/user/'+$scope.contact.id
-		}).then(function successCallback(response) {
-			if (!response.data[0].end) {
-				$scope.numerodom = response.data[0].numero
-				$scope.ruedom = response.data[0].rue
-				$scope.cpdom = response.data[0].cp
-				$scope.villedom = response.data[0].ville
+		if (!$scope.contact.adresses[0].end) {
+				$scope.numerodom = $scope.contact.adresses[0].numero
+				$scope.ruedom = $scope.contact.adresses[0].rue
+				$scope.cpdom = $scope.contact.adresses[0].cp
+				$scope.villedom = $scope.contact.adresses[0].ville
 
-				$scope.numerotra = response.data[1].numero
-				$scope.ruetra = response.data[1].rue
-				$scope.cptra = response.data[1].cp
-				$scope.villetra = response.data[1].ville
+				$scope.numerotra = $scope.contact.adresses[1].numero
+				$scope.ruetra = $scope.contact.adresses[1].rue
+				$scope.cptra = $scope.contact.adresses[1].cp
+				$scope.villetra = $scope.contact.adresses[1].ville
 			} else {
-				$scope.numerodom = response.data[1].numero
-				$scope.ruedom = response.data[1].rue
-				$scope.cpdom = response.data[1].cp
-				$scope.villedom = response.data[1].ville
+				$scope.numerodom = $scope.contact.adresses[1].numero
+				$scope.ruedom = $scope.contact.adresses[1].rue
+				$scope.cpdom = $scope.contact.adresses[1].cp
+				$scope.villedom = $scope.contact.adresses[1].ville
 
-				$scope.numerotra = response.data[1].numero
-				$scope.ruetra = response.data[1].rue
-				$scope.cptra = response.data[1].cp
-				$scope.villetra = response.data[1].ville
+				$scope.numerotra = $scope.contact.adresses[0].numero
+				$scope.ruetra = $scope.contact.adresses[0].rue
+				$scope.cptra = $scope.contact.adresses[0].cp
+				$scope.villetra = $scope.contact.adresses[0].ville
 			}
-
-			console.log(response.data[0]);
-			// console.log(response.data[0].rue);
-			$scope.rue = response.data[0].rue;
-
-		  }, function errorCallback(response) {
-		  	console.log(response)
-		});
 
 		/**
 		 * Fonction permettant de récupérer les données du formulaire d'ajout d'adresse

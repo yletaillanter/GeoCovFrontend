@@ -23,9 +23,9 @@
       <form class="form-horizontal" role="form">
         <h3>Ajouter ou modifier une adresse</h3>
         <div class='form-group' ng-init="adresse.end='true'">
-          <input type="radio" name="travail" value="false" id="no" ng-model='adresse.end' /> <label for="no"> Adresse de domicile  </label>
+          <input type="radio" name="travail" value="true" id="no" ng-model='adresse.end' /> <label for="no"> Adresse de domicile  </label>
           &nbsp
-          <input type="radio" name="travail" value="true" id="yes" ng-model='adresse.end' /> <label for="yes"> Adresse de travail </label>
+          <input type="radio" name="travail" value="false" id="yes" ng-model='adresse.end' /> <label for="yes"> Adresse de travail </label>
         </div>
         <div class='form-group'>
           <label for='numero'>Numero : </label>
