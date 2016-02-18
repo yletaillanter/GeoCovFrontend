@@ -8,11 +8,20 @@
  * Controller of the geocovApp
  */
 angular.module('geocovApp')
-  .controller('GroupeCtrl', function ($scope, $location) {
-
+  // Factory utilisé pour la connexion
+  .factory('Groupe', function($resource) {
+    return $resource('http://localhost\:8080/groupe/:id', {id:'@id'});
+  })
+  // Factory utilisé pour la connexion
+  .factory('GroupeByUser', function($resource) {
+    return $resource('http://localhost\:8080/groupe/getByClient/:id', {id:'@id'});
+  })
+  .controller('GroupeCtrl', function ($scope, $location, Groupe, GroupeByUser) {
     if(!sessionStorage.loggedIn) {
       $location.path('/compte/auth');
-    } else {
+    }
+
+    $scope.contact = JSON.parse(sessionStorage.contact);
 
     $scope.initAffichage = function() {
       if (false) {
@@ -63,73 +72,82 @@ angular.module('geocovApp')
       document.getElementById("conversation").scrollTop=document.getElementById("conversation").scrollHeight;
     };
 
-
     $scope.initMapGroupe = function() {
-      var centre = new google.maps.LatLng(48.106752,-1.669667);
-      var destination = new google.maps.LatLng(48.136619,-1.620522);
-      var myArray = [[48.110081,-1.677181,'Julie G.'],[48.110092,-1.667953,'Mariia I.'],[48.100900,-1.667973,'Léon P.']];
+      // Récupère le groupe du client à partir de son ID pour l'afficher
+      $scope.groupe = GroupeByUser.get({ id:$scope.contact.id });
+      // Vue qu'on fait de l'ajax on récupère des données asynchrone il faut donc faire une fonction qui sera executer au moment ou on recevra le resultat
+      $scope.groupe.$promise.then(
+        // Si on reçoit le résultat alors on place les marqueur
+        function(groupe) {
+          // Pour chaque personne du groupe
+          for (var it = 0; it < groupe.clients.length; it++) {
+            // On créer un position google à partir de sa latitude et longitude
+            var position = new google.maps.LatLng(groupe.clients[it].adresses[0].latitude,groupe.clients[it].adresses[0].longitude);
+            // On créer un marqueur à partir de la position , de la map et du texte donnée qui sera affiché dans le popup
+            createMarker(position, map, groupe.clients[it].name+ ' '+ groupe.clients[it].lastname);
+          }
 
+        }
+      );
+      // TODO calculer le centre à partir des différents points
+      var centre = new google.maps.LatLng(48.106752,-1.669667);
+      // TODO fixer la destination
+      // On prend la destination de la première personne et on part sur le fait que la destination est la même pour chaque ?
+      // Ou on decide de donner un destination directement a l'object groupe ?
+      var destination = new google.maps.LatLng(48.136619,-1.620522);
+      // On set la map avec comme position central celle du centre des différentes personne du groupe
       var carte = {
         center:centre,
         zoom:13,
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
       var map=new google.maps.Map(document.getElementById("mapGroupe"),carte);
-
-      //création des autres marqueurs
-      for (var it = 0; it < myArray.length; it++) {
-        var position = new google.maps.LatLng(myArray[it][0],myArray[it][1]);
-        createMarker(position, map, myArray[it][2]);
-      }
-
+      //création de la route à partir du centre et de la destination indiqué
       createRoute(centre, destination, map);
     };
-  }
 
-  function createMarker(position, map, nom){
-    var marqueur = new google.maps.Marker({
-      position: position,
-      map: map
-    });
+    function createMarker(position, map, nom){
+      var marqueur = new google.maps.Marker({
+        position: position,
+        map: map
+      });
 
-    var pinIcon = new google.maps.MarkerImage(
-      "/images/bleu_pers.png",
-      null, /* size is determined at runtime */
-      null, /* origin is 0,0 */
-      null, /* anchor is bottom center of the scaled image */
-      new google.maps.Size(50, 50)
-    );
-    marqueur.setIcon(pinIcon);
+      var pinIcon = new google.maps.MarkerImage(
+        "/images/bleu_pers.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(50, 50)
+      );
+      marqueur.setIcon(pinIcon);
 
-    var contenuInfoBulle = '<p>' + nom +'</p>';
+      var contenuInfoBulle = '<p>' + nom +'</p>';
+      var infoBulle = new google.maps.InfoWindow({
+        content: contenuInfoBulle
+      });
 
-    var infoBulle = new google.maps.InfoWindow({
-      content: contenuInfoBulle
-    });
-
-    google.maps.event.addListener(marqueur, 'click', function() {
-      infoBulle.open(map, marqueur);
-    });
-  };
-
-  function createRoute(centre, destination, map){
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-      map   : map, 
-      panel : document.getElementById("mapTrace") 
-    });
-
-    var request = {
-      origin:centre,
-      destination:destination,
-      travelMode: google.maps.TravelMode.DRIVING
+      google.maps.event.addListener(marqueur, 'click', function() {
+        infoBulle.open(map, marqueur);
+      });
     };
 
-    var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
-    directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
-      if(status == google.maps.DirectionsStatus.OK){
-        directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-      }
-    });
-  };
+    function createRoute(centre, destination, map){
+      var directionsDisplay = new google.maps.DirectionsRenderer({
+        map   : map,
+        panel : document.getElementById("mapTrace")
+      });
 
-});
+      var request = {
+        origin:centre,
+        destination:destination,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+
+      var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+      directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+        if(status == google.maps.DirectionsStatus.OK){
+          directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+        }
+      });
+    };
+  });
