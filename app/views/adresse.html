@@ -1,26 +1,51 @@
-<form class="form-horizontal" role="form">
-  <legend>Ajouter adresse</legend>
-  <div class='form-group'>
-    <label for='numero'>Numero: </label>
-    <input type='text' class='form-control' ng-model='adresse.numero' id='numero' required />
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Adresse domicile</h3> 
+      {{ numerodom }}
+      {{ ruedom }}
+      </br>
+      {{ cpdom }}
+      {{ villedom }}
+    </div>
+    <div class="col-md-6">
+      <h2><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Adresse de travail</h3>
+      {{ numerotra }}
+      {{ ruetra }}
+      </br>
+      {{ cptra }}
+      {{ villetra }}
+    </div>
+  </div> 
+  </br>
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form-horizontal" role="form">
+        <h2>Ajouter ou modifier une adresse</h2>
+        <div class='form-group' ng-init="adresse.end='true'">
+          <input type="radio" name="travail" value="true" id="yes" ng-model='adresse.end' /> <label for="yes"> Adresse de travail </label>
+          &nbsp
+          <input type="radio" name="travail" value="false" id="no" ng-model='adresse.end' /> <label for="no"> Adresse de domicile  </label>
+        </div>
+        <div class='form-group'>
+          <label for='numero'>Numero : </label>
+          <input type='text' class='form-control' ng-model='adresse.numero' id='numero' required />
+        </div>
+        <div class='form-group'>
+          <label for='rue'>Rue : </label>
+          <input type='text' class='form-control' ng-model='adresse.rue' id='rue' required />
+        </div>
+        <div class='form-group'>
+          <label for='cp'>Code Postal : </label>
+          <input type='text' class='form-control' ng-model='adresse.cp' id='cp' required />
+        </div>
+        <div class='form-group'>
+          <label for='ville'>Ville : </label>
+          <input type='text' class='form-control' ng-model='adresse.ville' id='ville' required />
+        </div>
+        <input type='button' class='btn btn-default pull-right' ng-click='reset()' value='Reset' />
+        <input type='submit' class='btn btn-success pull-right' ng-click='updateAd(adresse)' value='Save' />
+      </form>
+    </div>
   </div>
-  <div class='form-group'>
-    <label for='rue'>Rue: </label>
-    <input type='text' class='form-control' ng-model='adresse.rue' id='rue' required />
-  </div>
-  <div class='form-group'>
-    <label for='cp'>Code Postal: </label>
-    <input type='text' class='form-control' ng-model='adresse.cp' id='cp' required />
-  </div>
-  <div class='form-group'>
-    <label for='ville'>Ville: </label>
-    <input type='text' class='form-control' ng-model='adresse.ville' id='ville' required />
-  </div>
-  <div class='form-group' ng-init="adresse.end='true'">
-    <label for='travail'>Adresse de travail: </label><br />
-    <input type="radio" name="travail" value="true" id="yes" ng-model='adresse.end' /> <label for="yes"> Oui </label>
-    <input type="radio" name="travail" value="false" id="no" ng-model='adresse.end' /> <label for="no"> Non </label>
-  </div>
-  <input type='button' class='btn btn-default' ng-click='reset()' value='Reset' />
-  <input type='submit' class='btn btn-default' ng-click='updateAd(adresse)' value='Save' />
-</form>
+</div>

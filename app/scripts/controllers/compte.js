@@ -12,14 +12,13 @@ angular.module('geocovApp')
 	// Factory utilisé pour les requêtes global d'un crud : GET, POST, PUT, DELETE
 	.factory('Contact', function($resource) {
 		return $resource('http://localhost\:8080/client/:id', {id:'@id'}, {
-			'update': { method:'PUT' }}
-		);
+			'update': { method:'PUT' }
+		});
 	})
 	// Factory utilisé pour la connexion
 	.factory('Auth', function($resource) {
 		return $resource('http://localhost\:8080/client/auth');
 	})
-
 	/**
 	 * Controller utilisé pour l'affichage de données de la page 'Mon Compte'
 	 * Ses données sont récupérer depuis la session de l'utilisateur.
@@ -186,13 +185,47 @@ angular.module('geocovApp')
 	/**
 	 * Controller utilisé pour la modification d'une adresse
 	 */
-	.controller('CompteCtrlAdresse', function ($scope, $location, $cookies, Contact) {
+	.controller('CompteCtrlAdresse', function ($scope, $location, $cookies, $http, Contact) {
 		if(!sessionStorage.loggedIn) {
 			$location.path('/compte/auth');
 		}
 
 		// On récupére les données du contact stocké dans la session pour l'id du client
 		$scope.contact = JSON.parse(sessionStorage.contact);
+
+		$http({
+		  method: 'GET',
+		  url: 'http://localhost\:8080/adresse/user/'+$scope.contact.id
+		}).then(function successCallback(response) {
+			if (!response.data[0].end) {
+				$scope.numerodom = response.data[0].numero
+				$scope.ruedom = response.data[0].rue
+				$scope.cpdom = response.data[0].cp
+				$scope.villedom = response.data[0].ville
+
+				$scope.numerotra = response.data[1].numero
+				$scope.ruetra = response.data[1].rue
+				$scope.cptra = response.data[1].cp
+				$scope.villetra = response.data[1].ville
+			} else {
+				$scope.numerodom = response.data[1].numero
+				$scope.ruedom = response.data[1].rue
+				$scope.cpdom = response.data[1].cp
+				$scope.villedom = response.data[1].ville
+
+				$scope.numerotra = response.data[1].numero
+				$scope.ruetra = response.data[1].rue
+				$scope.cptra = response.data[1].cp
+				$scope.villetra = response.data[1].ville
+			}
+
+			console.log(response.data[0]);
+			// console.log(response.data[0].rue);
+			$scope.rue = response.data[0].rue;
+
+		  }, function errorCallback(response) {
+		  	console.log(response)
+		});
 
 		/**
 		 * Fonction permettant de récupérer les données du formulaire d'ajout d'adresse
