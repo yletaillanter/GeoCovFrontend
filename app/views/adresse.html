@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <h2><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Adresse domicile</h3> 
+      <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Adresse domicile</h3> 
       {{ numerodom }}
       {{ ruedom }}
       </br>
@@ -9,7 +9,7 @@
       {{ villedom }}
     </div>
     <div class="col-md-6">
-      <h2><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Adresse de travail</h3>
+      <h3><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Adresse de travail</h3>
       {{ numerotra }}
       {{ ruetra }}
       </br>
@@ -21,11 +21,11 @@
   <div class="row">
     <div class="col-md-12">
       <form class="form-horizontal" role="form">
-        <h2>Ajouter ou modifier une adresse</h2>
+        <h3>Ajouter ou modifier une adresse</h3>
         <div class='form-group' ng-init="adresse.end='true'">
-          <input type="radio" name="travail" value="true" id="yes" ng-model='adresse.end' /> <label for="yes"> Adresse de travail </label>
-          &nbsp
           <input type="radio" name="travail" value="false" id="no" ng-model='adresse.end' /> <label for="no"> Adresse de domicile  </label>
+          &nbsp
+          <input type="radio" name="travail" value="true" id="yes" ng-model='adresse.end' /> <label for="yes"> Adresse de travail </label>
         </div>
         <div class='form-group'>
           <label for='numero'>Numero : </label>
@@ -44,7 +44,7 @@
           <input type='text' class='form-control' ng-model='adresse.ville' id='ville' required />
         </div>
         <input type='button' class='btn btn-default pull-right' ng-click='reset()' value='Reset' />
-        <input type='submit' class='btn btn-success pull-right' ng-click='updateAd(adresse)' value='Save' />
+        <input type='submit' class='btn btn-success pull-right' ng-click='updateAd(adresse)' value='Enregistrer' />
       </form>
     </div>
   </div>
