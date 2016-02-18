@@ -34,6 +34,10 @@ angular.module('geocovApp')
 		*/
 		$scope.contact = JSON.parse(sessionStorage.contact);
 
+		$scope.go = function(path) {
+			$location.path(path)
+		};
+
 	})
 	/**
 	 * Controller utilisé pour le formulaire de connexion

@@ -1,9 +1,11 @@
 <div class="container">
   	<div class="row main">
   		<h1>Présentation</h1>
-    	<p>Bonjour {{ contact.name +" "+ contact.lastname }}, bienvenu sur Geocov, dans cette section vous pourrez modifier les informations personnelles ainsi que vos adresses.</p>
+    	<p>Bonjour {{ contact.name +" "+ contact.lastname }}, bienvenu sur Geocov, dans cette section vous pourrez modifier vos informations personnelles ainsi que vos adresses.</p>
 	</div>
 	<div class="row">
-		<div></div>
+		<div class="col-md-6"><button type="button" class="btn btn-default" ng-click="go('/compte/update')">Modifier mes informations personnelles</button></div>
+		<div class="col-md-6"><button type="button" class="btn btn-default" ng-click="go('/compte/updateAd')">Gérer mes adresses</button></div>
 	</div>
+	</br>
 </div>
