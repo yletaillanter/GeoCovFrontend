@@ -31,7 +31,7 @@ angular.module('geocovApp')
         document.getElementById("btn_quitter").style.display = 'none';
       }
       else if (true){
-        document.getElementById("btn_adherer").style.display = 'none';
+        //document.getElementById("btn_adherer").style.display = 'none';
       };
     }
 
