@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 /**
  * @ngdoc function
@@ -23,6 +23,7 @@ angular.module('geocovApp')
 
     $scope.contact = JSON.parse(sessionStorage.contact);
 
+/***
     $scope.initAffichage = function() {
       if (false) {
         document.getElementById("chat").style.display = 'none';
@@ -31,10 +32,10 @@ angular.module('geocovApp')
         document.getElementById("btn_quitter").style.display = 'none';
       }
       else if (true){
-        //document.getElementById("btn_adherer").style.display = 'none';
+        document.getElementById("btn_adherer").style.display = 'none';
       };
     }
-
+**/
     $scope.initChat = function() {
       //Récupération des anciens messages
       var messages =[
@@ -73,6 +74,12 @@ angular.module('geocovApp')
     };
 
     $scope.initMapGroupe = function() {
+      // On set la map avec comme position central celle du centre des différentes personne du groupe
+      var carte = {
+        center: new google.maps.LatLng(48.1154358,-1.6415069),
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+      var map=new google.maps.Map(document.getElementById("mapGroupe"),carte);
       // Récupère le groupe du client à partir de son ID pour l'afficher
       $scope.groupe = GroupeByUser.get({ id:$scope.contact.id });
       // Vue qu'on fait de l'ajax on récupère des données asynchrone il faut donc faire une fonction qui sera executer au moment ou on recevra le resultat
@@ -81,31 +88,28 @@ angular.module('geocovApp')
         function(groupe) {
           // Pour chaque personne du groupe
           for (var it = 0; it < groupe.clients.length; it++) {
+            // Récupére la latitude du client
+            var lat = groupe.clients[it].adresses[0].latitude;
+            // Récupére la longitude du client
+            var long = groupe.clients[it].adresses[0].longitude;
+            // Récupére le nom du client
+            var clientName = groupe.clients[it].name+ ' '+ groupe.clients[it].lastname;
             // On créer un position google à partir de sa latitude et longitude
-            var position = new google.maps.LatLng(groupe.clients[it].adresses[0].latitude,groupe.clients[it].adresses[0].longitude);
+            var position = new google.maps.LatLng(lat, long);
             // On créer un marqueur à partir de la position , de la map et du texte donnée qui sera affiché dans le popup
-            createMarker(position, map, groupe.clients[it].name+ ' '+ groupe.clients[it].lastname);
+            createMarker(position, map, clientName);
           }
-
+          // Récupération du midPoint entre les différents membre du groupe
+          var centre = new google.maps.LatLng(groupe.latMidPoint,groupe.longMidPoint);
+          // Récupération de la destination du groupe
+          var destination = new google.maps.LatLng(groupe.latDest, groupe.longDest);
+          //création de la route à partir du centre et de la destination indiqué
+          createRoute(centre, destination, map);
         }
       );
-      // TODO calculer le centre à partir des différents points
-      var centre = new google.maps.LatLng(48.106752,-1.669667);
-      // TODO fixer la destination
-      // On prend la destination de la première personne et on part sur le fait que la destination est la même pour chaque ?
-      // Ou on decide de donner un destination directement a l'object groupe ?
-      var destination = new google.maps.LatLng(48.136619,-1.620522);
-      // On set la map avec comme position central celle du centre des différentes personne du groupe
-      var carte = {
-        center:centre,
-        zoom:13,
-        mapTypeId:google.maps.MapTypeId.ROADMAP
-      };
-      var map=new google.maps.Map(document.getElementById("mapGroupe"),carte);
-      //création de la route à partir du centre et de la destination indiqué
-      createRoute(centre, destination, map);
     };
 
+    // Fonction permettant de créer un marqueur sur la carte Google Map
     function createMarker(position, map, nom){
       var marqueur = new google.maps.Marker({
         position: position,
@@ -131,6 +135,7 @@ angular.module('geocovApp')
       });
     };
 
+    // Fonction permettant de traver un trajet sur la carte Google Map
     function createRoute(centre, destination, map){
       var directionsDisplay = new google.maps.DirectionsRenderer({
         map   : map,
@@ -142,11 +147,13 @@ angular.module('geocovApp')
         destination:destination,
         travelMode: google.maps.TravelMode.DRIVING
       };
-
-      var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
-      directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+      // Service de calcul d'itinéraire
+      var directionsService = new google.maps.DirectionsService();
+      // Envoie de la requête pour calculer le parcours
+      directionsService.route(request, function(response, status){
         if(status == google.maps.DirectionsStatus.OK){
-          directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+          // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+          directionsDisplay.setDirections(response);
         }
       });
     };
