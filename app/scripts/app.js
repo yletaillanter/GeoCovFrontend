@@ -43,9 +43,6 @@ geocovApp.config(['$routeProvider', function ($routeProvider) {
         controllerAs: 'compteAdresse'
       })
       .when('/compte/loggout', {
-        //TODO Soit trouvé une methode ou il est possible de ne pas indiqué de templateURL car inutile pour la déconnexion
-        //Soit trouvé une autre methode plus prore
-        //Soit créer une vue vide juste pour ça ? ...
         templateUrl: 'views/auth.html',
         controller: 'CompteCtrlDeco',
         controllerAs: 'compteDeco'
