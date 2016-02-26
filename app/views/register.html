@@ -1,84 +1,64 @@
 <div class="bar">
-  <a href="#/compte/auth">Log In</a>
-  <a href="#/compte/register" class="active">Sign Up</a>
+  <a href="#/compte/auth">Connexion</a>
+  <a href="#/compte/register" class="active">Inscription</a>
 </div>
 
 <!-- Sign Up form -->
 
 <section>
-  <h3 class="head">Register form</h3>
+  <h3 class="head">Formulaire d'inscription</h3>
   <form class="form-horizontal" role="form" ng-submit="add(contact)">
     <div class="form-group">
-      <label for="form-name" class="col-sm-3 control-label">Your name</label>
+      <label for="form-name" class="col-sm-3 control-label">Prénom</label>
       <div class="col-sm-9">
-        <input name="name" type="text" class="form-control" placeholder="Insert your name" id="form-name" ng-model="contact.name">
+        <input name="name" type="text" class="form-control" placeholder="Prénom" id="form-name" ng-model="contact.name">
       </div>
     </div>
     <div class="form-group">
-      <label for="form-lastname" class="col-sm-3 control-label">Your lastname</label>
+      <label for="form-lastname" class="col-sm-3 control-label">Nom</label>
       <div class="col-sm-9">
-        <input name="lastname" type="text" class="form-control" placeholder="Insert your lastname" id="form-lastname" ng-model="contact.lastname">
+        <input name="lastname" type="text" class="form-control" placeholder="Nom" id="form-lastname" ng-model="contact.lastname">
       </div>
     </div>
     <div class="form-group">
-      <label for="form-passwd" class="col-sm-3 control-label">Your password</label>
+      <label for="form-passwd" class="col-sm-3 control-label">Mot de passe</label>
       <div class="col-sm-9">
-        <input name="passwd" type="password" class="form-control" placeholder="Insert your password" id="form-passwd" ng-model="contact.password">
+        <input name="passwd" type="password" class="form-control" placeholder="Mot de passe" id="form-passwd" ng-model="contact.password">
       </div>
     </div>
     <div class="form-group">
-      <label for="form-confpasswd" class="col-sm-3 control-label">Confirm password</label>
+      <label for="form-confpasswd" class="col-sm-3 control-label">Confirmation</label>
       <div class="col-sm-9">
-        <input name="confpasswd" type="password" class="form-control" placeholder="Confirm your password" id="form-confpasswd" ng-model="contact.cpassword">
+        <input name="confpasswd" type="password" class="form-control" placeholder="Confirmer votree mot de passe" id="form-confpasswd" ng-model="contact.cpassword">
       </div>
     </div>
     <div class="form-group">
-      <label for="form-email" class="col-sm-3 control-label">Your email</label>
+      <label for="form-email" class="col-sm-3 control-label">Email</label>
       <div class="col-sm-9">
-        <input name="email" type="email" class="form-control" placeholder="Insert your email" id="form-email" ng-model="contact.email">
+        <input name="email" type="email" class="form-control" placeholder="Email" id="form-email" ng-model="contact.email">
       </div>
     </div>
     <div class="form-group">
-      <label for="form-phone" class="col-sm-3 control-label">Your phone</label>
+      <label for="form-phone" class="col-sm-3 control-label">Téléphone</label>
       <div class="col-sm-9">
-        <input name="phone" type="text" class="form-control" placeholder="Enter your phone number" id="form-phone" ng-model="contact.phone">
+        <input name="phone" type="text" class="form-control" placeholder="Téléphone" id="form-phone" ng-model="contact.phone">
       </div>
     </div>
-    <!--
-    <div class="form-group">
-      <label for="form-city" class="col-sm-3 control-label">Your city</label>
-      <div class="col-sm-9">
-        <input name="city" type="text" class="form-control" placeholder="Enter city where are you living now" id="form-city" ng-model="contact.city">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="form-street" class="col-sm-3 control-label">Street</label>
-      <div class="col-sm-9">
-        <input name="street" type="text" class="form-control" placeholder="Enter your street" id="form-street" ng-model="contact.street">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="form-house" class="col-sm-3 control-label">House number</label>
-      <div class="col-sm-9">
-        <input name="house" type="text" class="form-control" placeholder="Enter your house number" id="form-house" ng-model="contact.house">
-      </div>
-    </div>
-    -->
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">
         <div class="checkbox">
           <label>
-            <input type="checkbox"> Remember me
+            <input type="checkbox"> Se souvenir de moi
           </label>
         </div>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-3">
-        <button type="submit" class="btn btn-success">Sign In</button>
+        <button type="submit" class="btn btn-success">Inscription</button>
       </div>
       <div class="col-sm-3">
-        <button class="btn btn-danger" ng-click="reset()">Reset</button>
+        <button class="btn btn-danger" ng-click="reset()">Réinitialiser</button>
       </div>
     </div>
   </form>

@@ -20,58 +20,8 @@ angular.module('geocovApp')
     if(!sessionStorage.loggedIn) {
       $location.path('/compte/auth');
     }
-
+    
     $scope.contact = JSON.parse(sessionStorage.contact);
-
-/***
-    $scope.initAffichage = function() {
-      if (false) {
-        document.getElementById("chat").style.display = 'none';
-        document.getElementById("info_importante").style.display = 'none';
-        document.getElementById("btn_verrouiller").style.display = 'none';
-        document.getElementById("btn_quitter").style.display = 'none';
-      }
-      else if (true){
-        document.getElementById("btn_adherer").style.display = 'none';
-      };
-    }
-**/
-    $scope.initChat = function() {
-      //Récupération des anciens messages
-      var messages =[
-        ["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"],
-        ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],
-        ["Julie G.","03/02/2015", "Grrrrr..."],
-        ["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"],
-        ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],
-        ["Julie G.","03/02/2015", "Grrrrr..."],
-        ["Julie G.","01/02/2015", "Hey ! Salut tout le monde !"],
-        ["Léon P.","02/02/2015", "TG ! Mais je t'aime bien quand même <3"],
-        ["Julie G.","03/02/2015", "Grrrrr..."]
-      ];
-
-      for(var it = 0; it < messages.length; it++) {
-        $('#mess_prec').append('[' + messages[it][1] +']' +' > <span class="membre" style="text-decoration: underline;">' + messages[it][0] + '</span> ' + messages[it][2] + '<br/>');
-      }
-
-      //Mettre le scroll en bas
-      //element = document.getElementById('conversation');
-      document.getElementById("conversation").scrollTop=document.getElementById("conversation").scrollHeight;
-    };
-
-    $scope.chatbox = function() {
-      var mess = document.getElementById("message");
-      var nom = "Julie G.";
-      var date = new Date();
-      var dateDetail = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' + date.getHours() + ':'+ date.getMinutes();
-
-      $('#mess_prec').append('['+dateDetail+']' + ' > <span class="membre" style="text-decoration: underline;">' + nom + '</span> ' + mess.value + '<br/>');
-      //enregistrement du message (?)
-      mess.value="";
-
-      //Mettre le scroll en bas
-      document.getElementById("conversation").scrollTop=document.getElementById("conversation").scrollHeight;
-    };
 
     $scope.initMapGroupe = function() {
       // On set la map avec comme position central celle du centre des différentes personne du groupe

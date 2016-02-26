@@ -1,19 +1,19 @@
 <div class="bar">
-  <a href="#/compte/auth" class="active">Log In</a>
-  <a href="#/compte/register">Sign Up</a>
+  <a href="#/compte/auth" class="active">Connexion</a>
+  <a href="#/compte/register">Inscription</a>
 </div>
 
 <section>
-  <h3 class="head">Sign In form</h3>
+  <h3 class="head">Formulaire de connexion</h3>
   <form class="form-horizontal" role="form" ng-submit="log(contact)">
     <div class="form-group">
-      <label for="form-name" class="col-sm-3 control-label">Your username</label>
+      <label for="form-name" class="col-sm-3 control-label">Email</label>
       <div class="col-sm-9">
         <input name="name" type="text" class="form-control" placeholder="Insert your name" id="form-name" ng-model="contact.email">
       </div>
     </div>
     <div class="form-group">
-      <label for="form-passwd" class="col-sm-3 control-label">Your password</label>
+      <label for="form-passwd" class="col-sm-3 control-label">Mot de passe</label>
       <div class="col-sm-9">
         <input name="passwd" type="password" class="form-control" placeholder="Insert your password" id="form-passwd" ng-model="contact.password">
       </div>
@@ -22,14 +22,14 @@
       <div class="col-sm-offset-3 col-sm-9">
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="contact.remember"> Remember me
+            <input type="checkbox" ng-model="contact.remember"> Se souvenir de moi
           </label>
         </div>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">
-        <button type="submit" class="btn btn-success">Sign In</button>
+        <button type="submit" class="btn btn-success">Connexion</button>
       </div>
     </div>
   </form>

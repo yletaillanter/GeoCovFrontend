@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Adresse domicile</h3> 
+      <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Adresse domicile</h3>
       {{ numerodom }}
       {{ ruedom }}
       </br>
@@ -16,7 +16,7 @@
       {{ cptra }}
       {{ villetra }}
     </div>
-  </div> 
+  </div>
   </br>
   <div class="row">
     <div class="col-md-12">
@@ -28,19 +28,19 @@
           <input type="radio" name="travail" value="true" id="yes" ng-model='adresse.end' /> <label for="yes"> Adresse de travail </label>
         </div>
         <div class='form-group'>
-          <label for='numero'>Numero : </label>
+          <label for='numero'>Numero</label>
           <input type='text' class='form-control' ng-model='adresse.numero' id='numero' required />
         </div>
         <div class='form-group'>
-          <label for='rue'>Rue : </label>
+          <label for='rue'>Rue</label>
           <input type='text' class='form-control' ng-model='adresse.rue' id='rue' required />
         </div>
         <div class='form-group'>
-          <label for='cp'>Code Postal : </label>
+          <label for='cp'>Code Postal</label>
           <input type='text' class='form-control' ng-model='adresse.cp' id='cp' required />
         </div>
         <div class='form-group'>
-          <label for='ville'>Ville : </label>
+          <label for='ville'>Ville</label>
           <input type='text' class='form-control' ng-model='adresse.ville' id='ville' required />
         </div>
         <input type='button' class='btn btn-default pull-right' ng-click='reset()' value='Reset' />
