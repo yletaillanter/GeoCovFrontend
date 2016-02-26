@@ -1,4 +1,17 @@
 <div class="container" ng-init="initAffichage()">
+<div class="row">
+  <div class="col-md-12">
+      <h2>Membre du groupe : </h2>
+    <div ng-repeat="personne in groupe.clients">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ personne.name }} {{ personne.lastname }} <br>
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span> {{ personne.adresses[0].numero }} {{ personne.adresses[0].rue }} {{ personne.adresses[0].cp }} {{ personne.adresses[0].ville }} <br>
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> {{ personne.email }} <br>
+      <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> {{ personne.phone }}
+      <br><br>
+
+    </div>
+  </div>
+</div>
   <div class="row">
 
 <!--     <div id="bouton_groupe">

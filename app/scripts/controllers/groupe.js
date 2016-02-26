@@ -82,6 +82,7 @@ angular.module('geocovApp')
       var map=new google.maps.Map(document.getElementById("mapGroupe"),carte);
       // Récupère le groupe du client à partir de son ID pour l'afficher
       $scope.groupe = GroupeByUser.get({ id:$scope.contact.id });
+      console.log($scope.groupe);
       // Vue qu'on fait de l'ajax on récupère des données asynchrone il faut donc faire une fonction qui sera executer au moment ou on recevra le resultat
       $scope.groupe.$promise.then(
         // Si on reçoit le résultat alors on place les marqueur

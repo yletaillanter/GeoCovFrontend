@@ -199,7 +199,8 @@ angular.module('geocovApp')
 		// On récupére les données du contact stocké dans la session pour l'id du client
 		$scope.contact = JSON.parse(sessionStorage.contact);
 
-		if (!$scope.contact.adresses[0].end) {
+		if ($scope.contact.adresses !== null) { 
+			if (!$scope.contact.adresses[0].end) {
 				$scope.numerodom = $scope.contact.adresses[0].numero
 				$scope.ruedom = $scope.contact.adresses[0].rue
 				$scope.cpdom = $scope.contact.adresses[0].cp
@@ -220,7 +221,7 @@ angular.module('geocovApp')
 				$scope.cptra = $scope.contact.adresses[0].cp
 				$scope.villetra = $scope.contact.adresses[0].ville
 			}
-
+		}
 		/**
 		 * Fonction permettant de récupérer les données du formulaire d'ajout d'adresse
 		 */
@@ -230,10 +231,11 @@ angular.module('geocovApp')
 			updateContact.id = $scope.contact.id;
 			// On concatène toute l'adresse pour requêter les coordonnées GPS à Google
 			var adresseConcat = adresse.numero+" "+adresse.rue+" "+adresse.cp+" "+adresse.ville;
+			console.log(adresseConcat);
 			// On effectue la requête à Google
 			var geo = new google.maps.Geocoder();
 			geo.geocode({'address':adresseConcat},function(results, status){
-				// Si google nous renvois de bon résultat.
+				// Si google nous renvois de bon résultat
 				if (status === google.maps.GeocoderStatus.OK) {
 					// On envoie les données a une fonction permettant de faire l'ajout
 					// quand on reçoit les données et pas à un autre moment
