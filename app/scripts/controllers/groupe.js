@@ -30,7 +30,6 @@ angular.module('geocovApp')
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
       var map=new google.maps.Map(document.getElementById("mapGroupe"),carte);
-      console.log($scope.contact.id);
       // Récupère le groupe du client à partir de son ID pour l'afficher
       $scope.groupe = GroupeByUser.get({ id:$scope.contact.id });
       // Vue qu'on fait de l'ajax on récupère des données asynchrone il faut donc faire une fonction qui sera executer au moment ou on recevra le resultat
@@ -38,24 +37,26 @@ angular.module('geocovApp')
         // Si on reçoit le résultat alors on place les marqueur
         function(groupe) {
           // Pour chaque personne du groupe
-          for (var it = 0; it < groupe.clients.length; it++) {
-            // Récupére la latitude du client
-            var lat = groupe.clients[it].adresses[0].latitude;
-            // Récupére la longitude du client
-            var long = groupe.clients[it].adresses[0].longitude;
-            // Récupére le nom du client
-            var clientName = groupe.clients[it].name+ ' '+ groupe.clients[it].lastname;
-            // On créer un position google à partir de sa latitude et longitude
-            var position = new google.maps.LatLng(lat, long);
-            // On créer un marqueur à partir de la position , de la map et du texte donnée qui sera affiché dans le popup
-            createMarker(position, map, clientName);
+          if ( groupe.clients.length > 0 ) {
+            for (var it = 0; it < groupe.clients.length; it++) {
+              // Récupére la latitude du client
+              var lat = groupe.clients[it].adresses[0].latitude;
+              // Récupére la longitude du client
+              var long = groupe.clients[it].adresses[0].longitude;
+              // Récupére le nom du client
+              var clientName = groupe.clients[it].name+ ' '+ groupe.clients[it].lastname;
+              // On créer un position google à partir de sa latitude et longitude
+              var position = new google.maps.LatLng(lat, long);
+              // On créer un marqueur à partir de la position , de la map et du texte donnée qui sera affiché dans le popup
+              createMarker(position, map, clientName);
+            }
+            // Récupération du midPoint entre les différents membre du groupe
+            var centre = new google.maps.LatLng(groupe.latMidPoint,groupe.longMidPoint);
+            // Récupération de la destination du groupe
+            var destination = new google.maps.LatLng(groupe.latDest, groupe.longDest);
+            //création de la route à partir du centre et de la destination indiqué
+            createRoute(centre, destination, map);
           }
-          // Récupération du midPoint entre les différents membre du groupe
-          var centre = new google.maps.LatLng(groupe.latMidPoint,groupe.longMidPoint);
-          // Récupération de la destination du groupe
-          var destination = new google.maps.LatLng(groupe.latDest, groupe.longDest);
-          //création de la route à partir du centre et de la destination indiqué
-          createRoute(centre, destination, map);
         }
       );
     };
