@@ -199,27 +199,30 @@ angular.module('geocovApp')
 		// On récupére les données du contact stocké dans la session pour l'id du client
 		$scope.contact = JSON.parse(sessionStorage.contact);
 
-		if ($scope.contact.adresses !== null) { 
-			if (!$scope.contact.adresses[0].end) {
+		if ($scope.contact.adresses !== null) {
+			if ($scope.contact.adresses[0]!== undefined && !$scope.contact.adresses[0].end) {
 				$scope.numerodom = $scope.contact.adresses[0].numero
 				$scope.ruedom = $scope.contact.adresses[0].rue
 				$scope.cpdom = $scope.contact.adresses[0].cp
 				$scope.villedom = $scope.contact.adresses[0].ville
-
-				$scope.numerotra = $scope.contact.adresses[1].numero
-				$scope.ruetra = $scope.contact.adresses[1].rue
-				$scope.cptra = $scope.contact.adresses[1].cp
-				$scope.villetra = $scope.contact.adresses[1].ville
-			} else {
+				if ($scope.contact.adresses[1] !== undefined) {
+					$scope.numerotra = $scope.contact.adresses[1].numero
+					$scope.ruetra = $scope.contact.adresses[1].rue
+					$scope.cptra = $scope.contact.adresses[1].cp
+					$scope.villetra = $scope.contact.adresses[1].ville
+				}
+			} else if ($scope.contact.adresses[1] !== undefined ) {
 				$scope.numerodom = $scope.contact.adresses[1].numero
 				$scope.ruedom = $scope.contact.adresses[1].rue
 				$scope.cpdom = $scope.contact.adresses[1].cp
 				$scope.villedom = $scope.contact.adresses[1].ville
 
-				$scope.numerotra = $scope.contact.adresses[0].numero
-				$scope.ruetra = $scope.contact.adresses[0].rue
-				$scope.cptra = $scope.contact.adresses[0].cp
-				$scope.villetra = $scope.contact.adresses[0].ville
+				if ($scope.contact.adresses[0]!== undefined) {
+					$scope.numerotra = $scope.contact.adresses[0].numero
+					$scope.ruetra = $scope.contact.adresses[0].rue
+					$scope.cptra = $scope.contact.adresses[0].cp
+					$scope.villetra = $scope.contact.adresses[0].ville
+				}
 			}
 		}
 		/**
